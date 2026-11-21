@@ -1,1 +1,14 @@
-:focus-visible { outline: 3px solid var(--rf-ink); outline-offset: 3px; }
+@use '../abstracts/mixins' as m;
+
+// Fokus keyboard selalu terlihat pada semua elemen interaktif (DESIGN §8.3).
+:focus-visible {
+    @include m.focus-ring;
+}
+
+:focus:not(:focus-visible) {
+    outline: none;
+}
+
+[tabindex='-1']:focus {
+    outline: none;
+}

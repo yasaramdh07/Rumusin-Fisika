@@ -1,0 +1,78 @@
+@use '../abstracts/mixins' as m;
+
+// Chip kategori: pil low; aktif: clay kuning + centang (bukan warna saja).
+.rf-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rf-space-2);
+    @include m.touch-target;
+    padding: 0 var(--rf-space-4);
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    border: 2px solid transparent;
+    border-radius: var(--rf-radius-pill);
+    font-family: var(--rf-font-body);
+    font-weight: 700;
+    font-size: var(--rf-text-xs);
+    text-decoration: none;
+    cursor: pointer;
+    @include m.surface-low;
+    @include m.respond-motion;
+
+    @include m.on-hover {
+        color: var(--rf-ink);
+        transform: translateY(-1px);
+    }
+
+    @include m.on-focus {
+        border-color: var(--rf-ink);
+    }
+
+    @include m.on-press {
+        @include m.pressed;
+    }
+
+    &[aria-pressed='true'],
+    &[aria-current='true'],
+    &.is-active {
+        background: var(--rf-yellow);
+        @include m.clay-yellow;
+    }
+
+    // Centang hanya muncul saat aktif.
+    .rf-chip__check {
+        display: none;
+    }
+
+    &[aria-pressed='true'] .rf-chip__check,
+    &[aria-current='true'] .rf-chip__check,
+    &.is-active .rf-chip__check {
+        display: inline-block;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+        background: var(--rf-disabled-bg);
+        color: var(--rf-disabled-ink);
+        box-shadow: none;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+.rf-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rf-space-3);
+}
+
+// Tag kecil (bukan interaktif).
+.rf-tag {
+    display: inline-block;
+    padding: 2px var(--rf-space-2);
+    border-radius: var(--rf-radius-tag);
+    background: var(--rf-yellow-soft);
+    color: var(--rf-ink);
+    font-size: var(--rf-text-xs);
+    font-weight: 700;
+}

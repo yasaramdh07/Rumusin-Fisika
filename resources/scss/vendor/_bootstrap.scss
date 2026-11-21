@@ -1,25 +1,85 @@
-@use 'sass:map';
 @use '../abstracts/tokens' as t;
 
-// Override variabel Bootstrap SEBELUM impor; hanya modul yang dipakai.
+// Override variabel Bootstrap SEBELUM impor. Bootstrap dipakai untuk grid, utilitas,
+// dan perilaku JS (collapse); tampilan komponen dibuat sendiri (prefix rf-).
 $body-bg: t.$rf-base;
 $body-color: t.$rf-ink;
 $font-family-sans-serif: t.$rf-font-body;
-$primary: t.$rf-red;
+$font-size-base: 1rem;
+$line-height-base: 1.6;
+$headings-font-family: t.$rf-font-display;
+$headings-font-weight: 700;
+$headings-line-height: 1.15;
+$headings-color: t.$rf-ink;
 $link-color: t.$rf-red-deep;
+$link-hover-color: t.$rf-ink;
+$link-decoration: underline;
 $border-radius: t.$rf-radius-input;
+$grid-gutter-width: 24px;
+$spacers: (
+    0: 0,
+    1: 4px,
+    2: 8px,
+    3: 12px,
+    4: 16px,
+    5: 24px,
+    6: 32px,
+    7: 48px,
+    8: 72px,
+);
 $enable-shadows: false;
 $enable-gradients: false;
+$enable-negative-margins: false;
+$enable-dark-mode: false;
 
+// Hanya modul yang dipakai (tanpa buttons, forms, card, nav, navbar, dll).
 @import 'bootstrap/scss/functions';
 @import 'bootstrap/scss/variables';
 @import 'bootstrap/scss/variables-dark';
 @import 'bootstrap/scss/maps';
 @import 'bootstrap/scss/mixins';
 @import 'bootstrap/scss/utilities';
+
+// Pangkas utilitas ke yang benar-benar dipakai.
+$utilities: map-get-multiple(
+    $utilities,
+    (
+        'display',
+        'flex',
+        'flex-direction',
+        'flex-grow',
+        'flex-shrink',
+        'flex-wrap',
+        'justify-content',
+        'align-items',
+        'align-self',
+        'order',
+        'gap',
+        'margin',
+        'margin-x',
+        'margin-y',
+        'margin-top',
+        'margin-bottom',
+        'margin-start',
+        'margin-end',
+        'padding',
+        'padding-x',
+        'padding-y',
+        'padding-top',
+        'padding-bottom',
+        'text-align',
+        'position',
+        'width',
+        'max-width',
+        'overflow',
+        'visibility'
+    )
+);
+
 @import 'bootstrap/scss/root';
 @import 'bootstrap/scss/reboot';
 @import 'bootstrap/scss/containers';
 @import 'bootstrap/scss/grid';
-@import 'bootstrap/scss/helpers';
+@import 'bootstrap/scss/transitions';
+@import 'bootstrap/scss/helpers/visually-hidden';
 @import 'bootstrap/scss/utilities/api';

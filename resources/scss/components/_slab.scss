@@ -1,0 +1,61 @@
+@use '../abstracts/mixins' as m;
+
+.rf-slab {
+    position: relative;
+    padding: var(--rf-space-5);
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-slab);
+    @include m.surface-flat;
+
+    @media (min-width: 768px) {
+        padding: var(--rf-space-6);
+    }
+}
+
+// Slab tipis untuk item berulang (hemat shadow di daftar panjang).
+.rf-slab--low {
+    border-radius: var(--rf-radius-tile);
+    padding: var(--rf-space-4);
+    @include m.surface-low;
+}
+
+// Lipatan sudut: ciri khas, dipakai hemat (satu-dua per halaman).
+.rf-slab--fold {
+    --rf-fold: 40px;
+    border-top-right-radius: 6px;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: var(--rf-fold);
+        height: var(--rf-fold);
+        pointer-events: none;
+    }
+
+    // Segitiga yang "terpotong" memperlihatkan permukaan halaman.
+    &::before {
+        background: var(--rf-base);
+        clip-path: polygon(0 0, 100% 0, 100% 100%);
+    }
+
+    // Lipatan kertas.
+    &::after {
+        background: var(--rf-base-lo);
+        clip-path: polygon(0 0, 100% 100%, 0 100%);
+        border-bottom-left-radius: 6px;
+    }
+}
+
+.rf-slab--inset {
+    box-shadow: var(--rf-sh-inset);
+}
+
+.rf-tile {
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-tile);
+    padding: var(--rf-space-4);
+    @include m.surface-low;
+}

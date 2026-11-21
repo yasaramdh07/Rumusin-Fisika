@@ -1,26 +1,56 @@
-// Token desain Rumusin (DESIGN.md §3). Nilai merah/kuning masih nilai awal;
-// akan disesuaikan dengan logo saat prompt UI.
+// Token desain Rumusin (DESIGN.md 3).
+// Merah dan kuning diambil dari logo (public/images/logo-rumusin.png):
+// merah #AF1919 (piksel dominan), kuning #E8A627 (titik kuning pada atom).
+// Turunan (deep/soft) dihitung agar kontras teks lulus AA.
+
 $rf-base: #ECEEF2;
 $rf-base-hi: #FFFFFF;
 $rf-base-lo: #C8CDD8;
 $rf-ink: #23222B;
 $rf-ink-soft: #5B5A68;
-$rf-red: #D62839;
-$rf-red-deep: #A9162A;
-$rf-red-soft: #F6C9CE;
-$rf-yellow: #FFC53D;
-$rf-yellow-deep: #E29A00;
-$rf-yellow-soft: #FFEDB8;
-$rf-ok: #1E7F55;
+$rf-red: #AF1919;
+$rf-red-deep: #8A1010;
+$rf-red-soft: #F4CFCF;
+$rf-yellow: #E8A627;
+$rf-yellow-deep: #B07408;
+$rf-yellow-soft: #FBE8BD;
+$rf-ok: #176B48;
+$rf-disabled-bg: #DDE0E8;
+$rf-disabled-ink: #5F5E6C;
 
+// Radius per peran
 $rf-radius-pill: 999px;
 $rf-radius-slab: 28px;
 $rf-radius-tile: 18px;
 $rf-radius-input: 12px;
 $rf-radius-tag: 8px;
 
+// Tipografi
 $rf-font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
 $rf-font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+// Skala (px): 14 / 16 / 18 / 22 / 28 / 38 / 52
+$rf-text-xs: 0.875rem;
+$rf-text-sm: 1rem;
+$rf-text-md: 1.125rem;
+$rf-text-lg: 1.375rem;
+$rf-text-xl: 1.75rem;
+$rf-text-2xl: 2.375rem;
+$rf-text-3xl: 3.25rem;
+
+// Spasi (skala 4px)
+$rf-space: (
+    1: 4px,
+    2: 8px,
+    3: 12px,
+    4: 16px,
+    5: 24px,
+    6: 32px,
+    7: 48px,
+    8: 72px,
+);
+
+$rf-motion: 150ms;
 
 :root {
     --rf-base: #{$rf-base};
@@ -35,7 +65,33 @@ $rf-font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
     --rf-yellow-deep: #{$rf-yellow-deep};
     --rf-yellow-soft: #{$rf-yellow-soft};
     --rf-ok: #{$rf-ok};
+    --rf-disabled-bg: #{$rf-disabled-bg};
+    --rf-disabled-ink: #{$rf-disabled-ink};
 
+    --rf-radius-pill: #{$rf-radius-pill};
+    --rf-radius-slab: #{$rf-radius-slab};
+    --rf-radius-tile: #{$rf-radius-tile};
+    --rf-radius-input: #{$rf-radius-input};
+    --rf-radius-tag: #{$rf-radius-tag};
+
+    --rf-font-display: #{$rf-font-display};
+    --rf-font-body: #{$rf-font-body};
+
+    --rf-text-xs: #{$rf-text-xs};
+    --rf-text-sm: #{$rf-text-sm};
+    --rf-text-md: #{$rf-text-md};
+    --rf-text-lg: #{$rf-text-lg};
+    --rf-text-xl: #{$rf-text-xl};
+    --rf-text-2xl: #{$rf-text-2xl};
+    --rf-text-3xl: #{$rf-text-3xl};
+
+    @each $key, $value in $rf-space {
+        --rf-space-#{$key}: #{$value};
+    }
+
+    --rf-motion: #{$rf-motion};
+
+    // Elevasi
     --rf-sh-low: 3px 3px 8px var(--rf-base-lo), -3px -3px 8px var(--rf-base-hi);
     --rf-sh-flat: 6px 6px 14px var(--rf-base-lo), -6px -6px 14px var(--rf-base-hi);
     --rf-sh-inset: inset 4px 4px 9px var(--rf-base-lo), inset -4px -4px 9px var(--rf-base-hi);

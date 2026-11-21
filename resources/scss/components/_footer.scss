@@ -1,0 +1,19 @@
+.rf-footer {
+    margin-top: var(--rf-space-8);
+    padding: var(--rf-space-6) 0 var(--rf-space-7);
+    border-top: 2px solid var(--rf-base-lo);
+    color: var(--rf-ink-soft);
+    font-size: var(--rf-text-xs);
+
+    a {
+        color: var(--rf-ink);
+        font-weight: 700;
+    }
+}
+
+.rf-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--rf-space-3) var(--rf-space-6);
+}

@@ -1,0 +1,203 @@
+// Halaman /styleguide (hanya lokal). Gaya khusus halaman ini diberi awalan sg-.
+.sg {
+    padding-top: var(--rf-space-7);
+}
+
+.sg-intro {
+    margin-bottom: var(--rf-space-7);
+
+    h1 {
+        margin-bottom: var(--rf-space-4);
+    }
+}
+
+.sg-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-6);
+
+    @media (min-width: 992px) {
+        grid-template-columns: 200px minmax(0, 1fr);
+        gap: var(--rf-space-7);
+        align-items: start;
+    }
+}
+
+.sg-index {
+    @media (min-width: 992px) {
+        position: sticky;
+        top: 112px;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--rf-space-1) var(--rf-space-3);
+
+        @media (min-width: 992px) {
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 0;
+        }
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+        font-weight: 700;
+        color: var(--rf-ink);
+    }
+}
+
+.sg-body {
+    min-width: 0;
+}
+
+.sg-section {
+    padding-bottom: var(--rf-space-7);
+
+    &:nth-child(odd) {
+        padding-bottom: var(--rf-space-8);
+    }
+
+    > h2 {
+        margin-bottom: var(--rf-space-5);
+        font-size: var(--rf-text-xl);
+    }
+}
+
+.sg-swatches {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--rf-space-4) var(--rf-space-5);
+}
+
+.sg-swatch {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+}
+
+.sg-swatch__chip {
+    flex: 0 0 auto;
+    width: 56px;
+    height: 56px;
+    border-radius: var(--rf-radius-input);
+    box-shadow: var(--rf-sh-low);
+    border: 1px solid var(--rf-base-lo);
+}
+
+.sg-elev {
+    display: grid;
+    gap: var(--rf-space-5);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (min-width: 768px) {
+        grid-template-columns: 1.6fr 1fr;
+        align-items: start;
+    }
+}
+
+.sg-elev__inset {
+    @media (min-width: 768px) {
+        grid-column: 1 / -1;
+        max-width: 320px;
+    }
+}
+
+.sg-states {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-5);
+}
+
+.sg-state-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--rf-space-4) var(--rf-space-3);
+    align-items: end;
+}
+
+.sg-state-name {
+    grid-column: 1 / -1;
+    font-family: var(--rf-font-display);
+    font-weight: 700;
+}
+
+.sg-state-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--rf-space-2);
+    padding: var(--rf-space-3) var(--rf-space-3) var(--rf-space-2);
+
+    .rf-btn {
+        max-width: 100%;
+    }
+}
+
+.sg-cap {
+    font-size: var(--rf-text-xs);
+    color: var(--rf-ink-soft);
+}
+
+.sg-form {
+    display: grid;
+    gap: var(--rf-space-5);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.sg-form__wide {
+    @media (min-width: 768px) {
+        grid-column: 1 / -1;
+    }
+}
+
+.sg-sheet {
+    display: grid;
+    gap: var(--rf-space-5);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (min-width: 768px) {
+        grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+        align-items: center;
+    }
+}
+
+.sg-track {
+    max-width: 460px;
+}
+
+.sg-alerts {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+    max-width: 560px;
+}
+
+.sg-icons {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: var(--rf-space-3);
+
+    li {
+        display: flex;
+        align-items: center;
+        gap: var(--rf-space-2);
+        min-height: 44px;
+    }
+}

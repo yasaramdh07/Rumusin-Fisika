@@ -1,0 +1,98 @@
+@use '../abstracts/mixins' as m;
+
+.rf-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--rf-space-2);
+    @include m.touch-target;
+    padding: 0 var(--rf-space-5);
+    border: 0;
+    border-radius: var(--rf-radius-pill);
+    font-family: var(--rf-font-body);
+    font-weight: 700;
+    font-size: var(--rf-text-sm);
+    line-height: 1.2;
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    user-select: none;
+    @include m.respond-motion;
+
+    @include m.on-hover {
+        transform: translateY(-1px);
+    }
+
+    @include m.on-press {
+        transform: translateY(0);
+        @include m.pressed;
+    }
+
+    @include m.on-focus {
+        @include m.focus-ring;
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+        background: var(--rf-disabled-bg);
+        color: var(--rf-disabled-ink);
+        box-shadow: none;
+        cursor: not-allowed;
+        transform: none;
+    }
+}
+
+// Primer: clay merah, teks putih. Satu pemeran utama per layar.
+.rf-btn--primary {
+    background: var(--rf-red);
+    color: var(--rf-base-hi);
+    @include m.clay-red;
+
+    @include m.on-hover {
+        background: var(--rf-red);
+        color: var(--rf-base-hi);
+    }
+}
+
+// Sekunder: clay kuning, teks ink.
+.rf-btn--secondary {
+    background: var(--rf-yellow);
+    color: var(--rf-ink);
+    @include m.clay-yellow;
+
+    @include m.on-hover {
+        color: var(--rf-ink);
+    }
+}
+
+// Tersier: neumorphism low, teks tegas.
+.rf-btn--tertiary {
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    border: 2px solid transparent;
+    @include m.surface-low;
+
+    @include m.on-hover {
+        color: var(--rf-ink);
+    }
+
+    @include m.on-focus {
+        border-color: var(--rf-ink);
+    }
+
+    &:disabled,
+    &[aria-disabled='true'] {
+        border-color: transparent;
+    }
+}
+
+.rf-btn--block {
+    display: flex;
+    width: 100%;
+}
+
+// Tombol ikon bulat (tutup toast, buka menu).
+.rf-btn--icon {
+    padding: 0;
+    width: 44px;
+}

@@ -1,4 +1,5 @@
-import * as bootstrap from 'bootstrap';
+// Hanya perilaku Bootstrap yang dipakai (menu responsif).
+import 'bootstrap/js/dist/collapse';
 
-// Modul per fitur (ruka.js, tryout.js, lesson-video.js, math.js) ditambahkan di prompt berikutnya.
-window.bootstrap = bootstrap;
+import './toast';
+import './math';

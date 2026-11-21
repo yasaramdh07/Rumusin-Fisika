@@ -1,0 +1,99 @@
+@use '../abstracts/mixins' as m;
+
+// Admin: lebih datar dan fungsional; neumorphism dikurangi agar tabel dan form cepat dipindai.
+.rf-admin {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-5);
+    padding-top: var(--rf-space-5);
+    padding-bottom: var(--rf-space-5);
+
+    @media (min-width: 992px) {
+        grid-template-columns: 232px minmax(0, 1fr);
+        gap: var(--rf-space-6);
+        align-items: start;
+    }
+}
+
+.rf-admin__side {
+    padding: var(--rf-space-3);
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-tile);
+    @include m.surface-low;
+
+    @media (min-width: 992px) {
+        position: sticky;
+        top: var(--rf-space-5);
+    }
+}
+
+.rf-admin__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+    padding: var(--rf-space-1) var(--rf-space-2) var(--rf-space-3);
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    font-size: var(--rf-text-md);
+    color: var(--rf-ink);
+    text-decoration: none;
+
+    img {
+        height: 40px;
+        width: auto;
+    }
+}
+
+.rf-admin__nav {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rf-space-1);
+
+    @media (min-width: 992px) {
+        flex-direction: column;
+        flex-wrap: nowrap;
+    }
+}
+
+.rf-admin__link {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-2);
+    @include m.touch-target;
+    padding: 0 var(--rf-space-3);
+    border-radius: var(--rf-radius-input);
+    color: var(--rf-ink);
+    font-weight: 700;
+    text-decoration: none;
+
+    &:hover {
+        color: var(--rf-ink);
+        background: color-mix(in srgb, var(--rf-base-lo) 35%, transparent);
+    }
+
+    &[aria-current='page'] {
+        background: var(--rf-yellow);
+        box-shadow: var(--rf-sh-low);
+    }
+}
+
+.rf-admin__main {
+    min-width: 0;
+}
+
+.rf-admin__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    margin-bottom: var(--rf-space-5);
+
+    h1 {
+        font-size: var(--rf-text-2xl);
+        margin: 0;
+    }
+}

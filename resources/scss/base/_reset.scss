@@ -1,1 +1,58 @@
-body { background: var(--rf-base); color: var(--rf-ink); }
+// Pelengkap reboot Bootstrap: cegah scroll horizontal dan atur dasar halaman.
+html {
+    scroll-padding-top: 88px;
+}
+
+body {
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+img,
+svg,
+video {
+    max-width: 100%;
+}
+
+button {
+    font: inherit;
+}
+
+::selection {
+    background: var(--rf-yellow);
+    color: var(--rf-ink);
+}
+
+.rf-skip {
+    position: absolute;
+    left: var(--rf-space-4);
+    top: -80px;
+    z-index: 100;
+    padding: var(--rf-space-3) var(--rf-space-5);
+    background: var(--rf-ink);
+    color: var(--rf-base-hi);
+    border-radius: var(--rf-radius-pill);
+    text-decoration: none;
+
+    &:focus {
+        top: var(--rf-space-3);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+    }
+}

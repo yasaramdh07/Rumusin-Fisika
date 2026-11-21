@@ -1,0 +1,57 @@
+// Tabel admin: datar dan mudah dipindai. Gulir horizontal hanya di dalam pembungkus tabel.
+.rf-table-wrap {
+    overflow-x: auto;
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    box-shadow: var(--rf-sh-inset);
+}
+
+.rf-table {
+    width: 100%;
+    min-width: 560px;
+    border-collapse: collapse;
+    font-size: var(--rf-text-sm);
+
+    th,
+    td {
+        padding: var(--rf-space-3) var(--rf-space-4);
+        text-align: left;
+        vertical-align: middle;
+        border-bottom: 1px solid var(--rf-base-lo);
+    }
+
+    th {
+        font-family: var(--rf-font-display);
+        font-weight: 700;
+        color: var(--rf-ink);
+        white-space: nowrap;
+    }
+
+    td {
+        color: var(--rf-ink);
+    }
+
+    tbody tr:last-child td {
+        border-bottom: 0;
+    }
+
+    tbody tr:hover td {
+        background: color-mix(in srgb, var(--rf-base-lo) 25%, transparent);
+    }
+
+    .rf-table__num {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .rf-table__actions {
+        white-space: nowrap;
+        text-align: right;
+    }
+}
+
+.rf-empty {
+    padding: var(--rf-space-6) var(--rf-space-5);
+    max-width: 44ch;
+    color: var(--rf-ink-soft);
+}

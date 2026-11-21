@@ -1,2 +1,74 @@
-@use '../abstracts/tokens' as t;
-body { font-family: t.$rf-font-body; font-size: 1rem; line-height: 1.6; }
+body {
+    font-family: var(--rf-font-body);
+    font-size: var(--rf-text-sm);
+    line-height: 1.6;
+    font-variant-numeric: proportional-nums;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.rf-display {
+    font-family: var(--rf-font-display);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-align: left;
+    text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.25rem, 1.2rem + 4.4vw, var(--rf-text-3xl)); font-weight: 800; line-height: 1.05; }
+h2 { font-size: clamp(1.75rem, 1.2rem + 2vw, var(--rf-text-2xl)); line-height: 1.12; }
+h3 { font-size: var(--rf-text-xl); }
+h4 { font-size: var(--rf-text-lg); }
+h5 { font-size: var(--rf-text-md); }
+h6 { font-size: var(--rf-text-sm); }
+
+a {
+    text-underline-offset: 3px;
+
+    &:hover {
+        color: var(--rf-ink);
+    }
+}
+
+small,
+.rf-small {
+    font-size: var(--rf-text-xs);
+}
+
+.rf-muted {
+    color: var(--rf-ink-soft);
+}
+
+// Isi materi: panjang baris maksimum 70 karakter, isi 17px.
+.rf-prose {
+    max-width: 68ch;
+    font-size: 1.0625rem;
+    line-height: 1.65;
+
+    > * + * {
+        margin-top: var(--rf-space-4);
+    }
+
+    h2,
+    h3 {
+        margin-top: var(--rf-space-6);
+    }
+}
+
+.rf-num {
+    font-variant-numeric: tabular-nums;
+}
+
+code,
+kbd {
+    font-size: 0.9em;
+    padding: 1px 6px;
+    background: var(--rf-base);
+    box-shadow: var(--rf-sh-inset);
+    border-radius: var(--rf-radius-tag);
+    color: var(--rf-ink);
+}

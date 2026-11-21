@@ -1,0 +1,96 @@
+@use '../abstracts/mixins' as m;
+
+// Alert inline dan toast. Status selalu ikon + kata, tidak hanya warna.
+.rf-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--rf-space-3);
+    padding: var(--rf-space-3) var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    border-left: 6px solid var(--rf-ink-soft);
+    @include m.surface-low;
+
+    .rf-icon {
+        flex: 0 0 auto;
+        margin-top: 2px;
+    }
+
+    &--ok {
+        border-left-color: var(--rf-ok);
+
+        .rf-alert__kind {
+            color: var(--rf-ok);
+        }
+    }
+
+    &--error {
+        border-left-color: var(--rf-red);
+
+        .rf-alert__kind {
+            color: var(--rf-red-deep);
+        }
+    }
+
+    &--info {
+        border-left-color: var(--rf-yellow-deep);
+
+        .rf-alert__kind {
+            color: var(--rf-ink);
+        }
+    }
+}
+
+.rf-alert__body {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.rf-alert__kind {
+    display: block;
+    font-weight: 800;
+    font-family: var(--rf-font-display);
+}
+
+.rf-toasts {
+    position: fixed;
+    left: var(--rf-space-4);
+    right: var(--rf-space-4);
+    bottom: var(--rf-space-4);
+    z-index: 90;
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-3);
+    pointer-events: none;
+
+    @media (min-width: 768px) {
+        right: auto;
+        width: 380px;
+    }
+}
+
+.rf-toast {
+    pointer-events: auto;
+    animation: rf-toast-in 160ms ease-out;
+    padding-right: var(--rf-space-2);
+    align-items: center;
+    box-shadow: var(--rf-sh-flat);
+
+    &.is-leaving {
+        opacity: 0;
+        transition: opacity 120ms ease-out;
+    }
+}
+
+@keyframes rf-toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
