@@ -1,0 +1,2 @@
+@use '../abstracts/tokens' as t;
+body { font-family: t.$rf-font-body; font-size: 1rem; line-height: 1.6; }

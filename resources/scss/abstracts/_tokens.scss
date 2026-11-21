@@ -1,0 +1,45 @@
+// Token desain Rumusin (DESIGN.md §3). Nilai merah/kuning masih nilai awal;
+// akan disesuaikan dengan logo saat prompt UI.
+$rf-base: #ECEEF2;
+$rf-base-hi: #FFFFFF;
+$rf-base-lo: #C8CDD8;
+$rf-ink: #23222B;
+$rf-ink-soft: #5B5A68;
+$rf-red: #D62839;
+$rf-red-deep: #A9162A;
+$rf-red-soft: #F6C9CE;
+$rf-yellow: #FFC53D;
+$rf-yellow-deep: #E29A00;
+$rf-yellow-soft: #FFEDB8;
+$rf-ok: #1E7F55;
+
+$rf-radius-pill: 999px;
+$rf-radius-slab: 28px;
+$rf-radius-tile: 18px;
+$rf-radius-input: 12px;
+$rf-radius-tag: 8px;
+
+$rf-font-display: 'Bricolage Grotesque Variable', system-ui, sans-serif;
+$rf-font-body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+
+:root {
+    --rf-base: #{$rf-base};
+    --rf-base-hi: #{$rf-base-hi};
+    --rf-base-lo: #{$rf-base-lo};
+    --rf-ink: #{$rf-ink};
+    --rf-ink-soft: #{$rf-ink-soft};
+    --rf-red: #{$rf-red};
+    --rf-red-deep: #{$rf-red-deep};
+    --rf-red-soft: #{$rf-red-soft};
+    --rf-yellow: #{$rf-yellow};
+    --rf-yellow-deep: #{$rf-yellow-deep};
+    --rf-yellow-soft: #{$rf-yellow-soft};
+    --rf-ok: #{$rf-ok};
+
+    --rf-sh-low: 3px 3px 8px var(--rf-base-lo), -3px -3px 8px var(--rf-base-hi);
+    --rf-sh-flat: 6px 6px 14px var(--rf-base-lo), -6px -6px 14px var(--rf-base-hi);
+    --rf-sh-inset: inset 4px 4px 9px var(--rf-base-lo), inset -4px -4px 9px var(--rf-base-hi);
+    --rf-sh-clay-red: 7px 9px 18px rgba(120, 20, 30, .28), inset -5px -6px 10px rgba(0, 0, 0, .16), inset 5px 6px 10px rgba(255, 255, 255, .55);
+    --rf-sh-clay-yellow: 7px 9px 18px rgba(150, 95, 0, .30), inset -5px -6px 10px rgba(0, 0, 0, .12), inset 5px 6px 10px rgba(255, 255, 255, .6);
+    --rf-sh-pressed: inset 5px 6px 12px rgba(0, 0, 0, .22), inset -3px -3px 8px rgba(255, 255, 255, .35);
+}

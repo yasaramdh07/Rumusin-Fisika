@@ -1,0 +1,7 @@
+// Mixin elevasi; dipakai komponen agar tidak menulis shadow langsung.
+@mixin surface-low { box-shadow: var(--rf-sh-low); }
+@mixin surface-flat { box-shadow: var(--rf-sh-flat); }
+@mixin surface-inset { box-shadow: var(--rf-sh-inset); }
+@mixin clay-red { box-shadow: var(--rf-sh-clay-red); }
+@mixin clay-yellow { box-shadow: var(--rf-sh-clay-yellow); }
+@mixin pressed { box-shadow: var(--rf-sh-pressed); }
