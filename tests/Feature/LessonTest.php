@@ -1,0 +1,70 @@
+<?php
+
+namespace Tests\Feature;
+
+use App\Models\Category;
+use App\Models\Lesson;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\LessonSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class LessonTest extends TestCase
+{
+    use RefreshDatabase;
+
+    public function test_landing_and_lessons_index_show_only_published_lessons(): void
+    {
+        $this->seed([CategorySeeder::class, LessonSeeder::class]);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertSee('Rumusin soalnya,')
+            ->assertSee('Lembar Rumus')
+            ->assertSee('Gerak');
+
+        $this->get('/materi')
+            ->assertOk()
+            ->assertSee('Gerak Lurus (GLB dan GLBB)')
+            ->assertDontSee('Hukum Ohm dan Rangkaian Listrik');
+    }
+
+    public function test_published_lesson_renders_formulas_and_staged_videos(): void
+    {
+        $this->seed([CategorySeeder::class, LessonSeeder::class]);
+
+        $response = $this->get('/materi/gerak-lurus-glb-glbb');
+
+        $response->assertOk()
+            ->assertSee('Gerak Lurus (GLB dan GLBB)')
+            ->assertSee('Lembar Rumus')
+            ->assertSee('$v_t = v_0 + a\,t$', false)
+            ->assertSee('youtube-nocookie.com/embed/jNQXAC9IVRw', false)
+            ->assertSee('data-youtube-id="9bZkp7q19f0"', false)
+            ->assertSee('data-youtube-id="dQw4w9WgXcQ"', false)
+            ->assertSee('Diskusi')
+            ->assertSee('Tanya Ruka');
+    }
+
+    public function test_unpublished_lesson_returns_404_for_public(): void
+    {
+        $category = Category::create([
+            'name' => 'Listrik',
+            'slug' => 'listrik',
+            'description' => 'Listrik statis dan dinamis',
+            'sort_order' => 1,
+        ]);
+
+        Lesson::create([
+            'category_id' => $category->id,
+            'title' => 'Materi Draf',
+            'slug' => 'materi-draf',
+            'summary' => 'Ringkasan draf',
+            'body' => 'Isi draf',
+            'is_published' => false,
+            'sort_order' => 1,
+        ]);
+
+        $this->get('/materi/materi-draf')->assertNotFound();
+    }
+}

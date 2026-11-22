@@ -4,12 +4,15 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [LandingController::class, 'index'])->name('landing');
+
+Route::get('/materi', [LessonController::class, 'index'])->name('lessons.index');
+Route::get('/materi/{lesson:slug}', [LessonController::class, 'show'])->name('lessons.show');
 
 Route::middleware('guest')->group(function (): void {
     Route::get('/masuk', [LoginController::class, 'create'])->name('login');
