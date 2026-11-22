@@ -16,6 +16,8 @@
 @use 'components/navbar';
 @use 'components/footer';
 @use 'components/admin-layout';
+@use 'pages/auth';
+@use 'pages/home';
 @use 'pages/styleguide';
 
 @import '@fontsource-variable/bricolage-grotesque/wght.css';

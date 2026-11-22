@@ -34,7 +34,13 @@
                         </li>
                     @endforeach
                     <li>
-                        <a class="rf-admin__link" href="{{ url('/') }}"><x-icon name="logout" /> Ke situs</a>
+                        <a class="rf-admin__link" href="{{ url('/') }}"><x-icon name="book" /> Ke situs</a>
+                    </li>
+                    <li>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="rf-admin__link w-100 border-0 bg-transparent"><x-icon name="logout" /> Keluar</button>
+                        </form>
                     </li>
                 </ul>
             </nav>

@@ -21,6 +21,13 @@
 
                 <div class="collapse rf-navbar__panel" id="rf-nav">
                     <ul class="rf-navbar__menu">
+                        @auth
+                            @if (auth()->user()->isAdmin())
+                                <li><a class="rf-navbar__link" href="{{ route('admin.dashboard') }}" @if (request()->is('admin*')) aria-current="page" @endif>Admin</a></li>
+                            @else
+                                <li><a class="rf-navbar__link" href="{{ route('home') }}" @if (request()->is('beranda')) aria-current="page" @endif>Beranda</a></li>
+                            @endif
+                        @endauth
                         <li><a class="rf-navbar__link" href="{{ url('/materi') }}" @if (request()->is('materi*')) aria-current="page" @endif>Materi</a></li>
                         <li><a class="rf-navbar__link" href="{{ url('/tryout') }}" @if (request()->is('tryout*')) aria-current="page" @endif>Try out</a></li>
                         <li><a class="rf-navbar__link" href="{{ url('/leaderboard') }}" @if (request()->is('leaderboard*')) aria-current="page" @endif>Leaderboard</a></li>
@@ -29,20 +36,20 @@
                     <ul class="rf-navbar__account">
                         @auth
                             <li>
-                                <a class="rf-navbar__user" href="{{ url('/profil') }}">
+                                <a class="rf-navbar__user" href="{{ route('profile.show') }}" @if (request()->is('profil*')) aria-current="page" @endif>
                                     <x-ruka-avatar size="sm" />
                                     <span>{{ auth()->user()->name }}</span>
                                 </a>
                             </li>
                             <li>
-                                <form method="POST" action="{{ \Illuminate\Support\Facades\Route::has('logout') ? route('logout') : url('/keluar') }}">
+                                <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="rf-navbar__link"><x-icon name="logout" /> Keluar</button>
                                 </form>
                             </li>
                         @else
-                            <li><a class="rf-navbar__link" href="{{ url('/masuk') }}">Masuk</a></li>
-                            <li><a class="rf-btn rf-btn--secondary" href="{{ url('/daftar') }}">Buat akun</a></li>
+                            <li><a class="rf-navbar__link" href="{{ route('login') }}" @if (request()->is('masuk')) aria-current="page" @endif>Masuk</a></li>
+                            <li><a class="rf-btn rf-btn--secondary" href="{{ route('register') }}" @if (request()->is('daftar')) aria-current="page" @endif>Buat akun</a></li>
                         @endauth
                     </ul>
                 </div>

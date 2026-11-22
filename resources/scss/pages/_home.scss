@@ -1,0 +1,138 @@
+// Beranda setelah masuk (/beranda), sesuai DESIGN §5.5:
+// satu slab besar "Lanjutkan belajar" + kolom sempit skor & peringkat, di bawahnya daftar kategori.
+.rf-home {
+    padding-top: var(--rf-space-6);
+    padding-bottom: var(--rf-space-7);
+}
+
+.rf-home__top {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-5);
+
+    @media (min-width: 992px) {
+        grid-template-columns: minmax(0, 1.65fr) minmax(0, 0.85fr);
+        gap: var(--rf-space-6);
+        align-items: stretch;
+    }
+}
+
+.rf-home__continue {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--rf-space-4);
+
+    h1 {
+        font-size: clamp(1.75rem, 1.2rem + 2vw, var(--rf-text-2xl));
+        margin: 0;
+    }
+}
+
+.rf-home__cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rf-space-3);
+}
+
+.rf-home__summary {
+    h2 {
+        margin: 0 0 var(--rf-space-4);
+    }
+}
+
+.rf-home__notes {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+}
+
+.rf-home__note {
+    padding-top: var(--rf-space-3);
+    border-top: 2px solid var(--rf-base-lo);
+
+    &:first-child {
+        padding-top: 0;
+        border-top: 0;
+    }
+
+    dt {
+        font-weight: 700;
+        color: var(--rf-ink-soft);
+        font-size: var(--rf-text-xs);
+        margin-bottom: var(--rf-space-1);
+    }
+
+    dd {
+        margin: 0;
+        font-weight: 700;
+        font-size: var(--rf-text-md);
+    }
+}
+
+.rf-home__categories {
+    margin-top: var(--rf-space-7);
+
+    > h2 {
+        font-size: var(--rf-text-xl);
+        margin-bottom: var(--rf-space-5);
+    }
+}
+
+// Grid kategori asimetris (bukan deretan tiga kartu seragam).
+.rf-home__cat-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-4);
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(12, minmax(0, 1fr));
+        gap: var(--rf-space-5);
+    }
+}
+
+.rf-home__cat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+    padding: var(--rf-space-5);
+    color: var(--rf-ink);
+    text-decoration: none;
+    border: 2px solid transparent;
+
+    h3 {
+        margin: 0;
+    }
+
+    &:hover {
+        color: var(--rf-ink);
+        border-color: var(--rf-base-lo);
+    }
+
+    @media (min-width: 768px) {
+        grid-column: span 6;
+
+        &:nth-child(6n + 1) {
+            grid-column: span 7;
+        }
+
+        &:nth-child(6n + 2) {
+            grid-column: span 5;
+        }
+
+        &:nth-child(6n + 3) {
+            grid-column: span 4;
+        }
+
+        &:nth-child(6n + 4) {
+            grid-column: span 8;
+        }
+
+        &:nth-child(6n + 5),
+        &:nth-child(6n + 6) {
+            grid-column: span 6;
+        }
+    }
+}

@@ -1,0 +1,112 @@
+// Halaman masuk, daftar, dan profil.
+.rf-auth {
+    padding-top: var(--rf-space-6);
+    padding-bottom: var(--rf-space-7);
+
+    @media (min-width: 992px) {
+        padding-top: var(--rf-space-7);
+    }
+}
+
+.rf-auth__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-6);
+
+    @media (min-width: 992px) {
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        gap: var(--rf-space-7);
+        align-items: start;
+    }
+}
+
+.rf-auth__panel {
+    h1 {
+        font-size: var(--rf-text-2xl);
+        margin-bottom: var(--rf-space-2);
+    }
+}
+
+.rf-auth__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+    margin-top: var(--rf-space-5);
+}
+
+.rf-auth__actions {
+    margin-top: var(--rf-space-2);
+}
+
+.rf-auth__switch {
+    margin: var(--rf-space-5) 0 0;
+    padding-top: var(--rf-space-4);
+    border-top: 2px solid var(--rf-base-lo);
+    font-size: var(--rf-text-sm);
+
+    a {
+        font-weight: 700;
+    }
+}
+
+.rf-auth__aside {
+    @media (min-width: 992px) {
+        margin-top: var(--rf-space-5);
+    }
+}
+
+// Profil
+.rf-profile {
+    padding-top: var(--rf-space-6);
+    padding-bottom: var(--rf-space-7);
+}
+
+.rf-profile__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-4);
+    margin-bottom: var(--rf-space-6);
+
+    h1 {
+        font-size: var(--rf-text-2xl);
+        margin: 0 0 var(--rf-space-1);
+    }
+}
+
+.rf-profile__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-6);
+
+    @media (min-width: 992px) {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+        align-items: start;
+    }
+}
+
+.rf-profile__section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--rf-space-2) var(--rf-space-4);
+    margin-bottom: var(--rf-space-4);
+
+    h2 {
+        margin: 0;
+    }
+}
+
+.rf-profile__form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+    margin-top: var(--rf-space-4);
+}
+
+.rf-profile__divider {
+    border: 0;
+    border-top: 2px solid var(--rf-base-lo);
+    margin: var(--rf-space-2) 0;
+}
