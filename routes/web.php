@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\LessonController as AdminLessonController;
+use App\Http\Controllers\Admin\LessonVideoController as AdminLessonVideoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\HomeController;
@@ -32,6 +35,29 @@ Route::middleware('auth')->group(function (): void {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function (): void {
     Route::get('/', [AdminDashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/kategori', [AdminCategoryController::class, 'index'])->name('categories.index');
+    Route::get('/kategori/tambah', [AdminCategoryController::class, 'create'])->name('categories.create');
+    Route::post('/kategori', [AdminCategoryController::class, 'store'])->name('categories.store');
+    Route::get('/kategori/{category}/ubah', [AdminCategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('/kategori/{category}', [AdminCategoryController::class, 'update'])->name('categories.update');
+    Route::delete('/kategori/{category}', [AdminCategoryController::class, 'destroy'])->name('categories.destroy');
+    Route::post('/kategori/{category}/naik', [AdminCategoryController::class, 'moveUp'])->name('categories.up');
+    Route::post('/kategori/{category}/turun', [AdminCategoryController::class, 'moveDown'])->name('categories.down');
+
+    Route::post('/materi/pratinjau', [AdminLessonController::class, 'preview'])->name('lessons.preview');
+    Route::get('/materi', [AdminLessonController::class, 'index'])->name('lessons.index');
+    Route::get('/materi/tambah', [AdminLessonController::class, 'create'])->name('lessons.create');
+    Route::post('/materi', [AdminLessonController::class, 'store'])->name('lessons.store');
+    Route::get('/materi/{lesson}/ubah', [AdminLessonController::class, 'edit'])->name('lessons.edit');
+    Route::put('/materi/{lesson}', [AdminLessonController::class, 'update'])->name('lessons.update');
+    Route::delete('/materi/{lesson}', [AdminLessonController::class, 'destroy'])->name('lessons.destroy');
+
+    Route::post('/materi/{lesson}/video', [AdminLessonVideoController::class, 'store'])->name('lessons.videos.store');
+    Route::put('/materi/{lesson}/video/{video}', [AdminLessonVideoController::class, 'update'])->name('lessons.videos.update');
+    Route::delete('/materi/{lesson}/video/{video}', [AdminLessonVideoController::class, 'destroy'])->name('lessons.videos.destroy');
+    Route::post('/materi/{lesson}/video/{video}/naik', [AdminLessonVideoController::class, 'moveUp'])->name('lessons.videos.up');
+    Route::post('/materi/{lesson}/video/{video}/turun', [AdminLessonVideoController::class, 'moveDown'])->name('lessons.videos.down');
 });
 
 // Halaman komponen untuk memeriksa konsistensi dan kontras; hanya di lokal.

@@ -18,6 +18,9 @@
         'plus' => '<path d="M12 5v14M5 12h14"/>',
         'edit' => '<path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/>',
         'trash' => '<path d="M3 6h18M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6M10 11v6M14 11v6M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/>',
+        'arrow-up' => '<path d="m18 15-6-6-6 6"/>',
+        'arrow-down' => '<path d="m6 9 6 6 6-6"/>',
+        'eye' => '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
     ];
 @endphp
 <svg {{ $attributes->class(['rf-icon']) }} viewBox="0 0 24 24" @if ($label) role="img" aria-label="{{ $label }}" @else aria-hidden="true" focusable="false" @endif>{!! $paths[$name] ?? '' !!}</svg>

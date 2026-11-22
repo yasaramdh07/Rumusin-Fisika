@@ -1,0 +1,120 @@
+@use '../abstracts/mixins' as m;
+
+// Komponen halaman admin (form, editor berdampingan pratinjau, aksi tabel, paginasi).
+.rf-admin-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: var(--rf-space-2);
+
+    form {
+        margin: 0;
+    }
+}
+
+.rf-admin-form-slab {
+    max-width: 720px;
+}
+
+.rf-admin-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+}
+
+.rf-admin-form__row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-4);
+
+    @media (min-width: 768px) {
+        grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
+    }
+}
+
+.rf-admin-form__short {
+    max-width: 220px;
+}
+
+.rf-admin-form__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-3);
+    margin-top: var(--rf-space-2);
+}
+
+.rf-textarea--tall {
+    min-height: 280px;
+    font-family: ui-monospace, 'Cascadia Code', Consolas, monospace;
+    font-size: 0.9375rem;
+}
+
+.rf-admin-editor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-5);
+
+    @media (min-width: 1200px) {
+        grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+        align-items: start;
+    }
+}
+
+.rf-admin-editor__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-4);
+}
+
+.rf-admin-editor__preview-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+    margin-bottom: var(--rf-space-3);
+}
+
+.rf-admin-preview-box {
+    max-height: 460px;
+    overflow-y: auto;
+    box-shadow: var(--rf-sh-inset);
+}
+
+.rf-check {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+    min-height: 44px;
+    font-weight: 700;
+    cursor: pointer;
+
+    input[type='checkbox'] {
+        width: 22px;
+        height: 22px;
+        accent-color: var(--rf-red);
+        cursor: pointer;
+    }
+}
+
+.rf-tag--ok {
+    background: color-mix(in srgb, var(--rf-ok) 16%, var(--rf-base));
+    color: var(--rf-ok);
+}
+
+.rf-pagination {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    margin-top: var(--rf-space-5);
+}
+
+.rf-pagination__info {
+    font-weight: 700;
+    font-size: var(--rf-text-xs);
+    color: var(--rf-ink-soft);
+}
