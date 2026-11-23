@@ -118,3 +118,25 @@
     font-size: var(--rf-text-xs);
     color: var(--rf-ink-soft);
 }
+
+.rf-admin-q-options {
+    padding-left: var(--rf-space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-2);
+
+    li > p {
+        margin: 0;
+    }
+}
+
+.rf-admin-checkbox {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--rf-red);
+    cursor: pointer;
+}
+
+.rf-admin-question-snippet {
+    max-width: 52ch;
+}

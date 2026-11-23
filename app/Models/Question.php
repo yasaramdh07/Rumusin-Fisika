@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Question extends Model
 {
@@ -31,5 +32,17 @@ class Question extends Model
         return $this->belongsToMany(Tryout::class, 'tryout_question')
             ->withPivot('position')
             ->withTimestamps();
+    }
+
+    public function answers(): HasMany
+    {
+        return $this->hasMany(TryoutAnswer::class);
+    }
+
+    public function hasCompletedAttempts(): bool
+    {
+        return $this->answers()
+            ->whereHas('attempt', fn ($query) => $query->whereNotNull('finished_at'))
+            ->exists();
     }
 }
