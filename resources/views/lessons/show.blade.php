@@ -265,11 +265,160 @@
     </div>
 </div>
 
-{{-- Dock Ruka: disiapkan sebagai tempat kosong di kanan-bawah, diisi pada prompt Ruka --}}
-<div class="rf-ruka-dock" id="ruka-dock" aria-label="Ruka asisten fisika">
-    <a class="rf-ruka-dock__btn" href="#diskusi" title="Ruka siap ditanya tentang {{ $lesson->title }}">
-        <x-ruka-avatar size="md" />
-        <span class="rf-ruka-dock__label">Tanya Ruka</span>
-    </a>
+{{-- Dock & Panel Chat Ruka (DESIGN §6 & PRD F8) --}}
+<div class="rf-ruka" data-ruka-widget>
+    <div class="rf-ruka-dock" id="ruka-dock">
+        <button
+            type="button"
+            class="rf-ruka-dock__btn"
+            data-ruka-toggle
+            aria-expanded="false"
+            aria-controls="ruka-panel"
+            title="Tanya Ruka tentang {{ $lesson->title }}"
+        >
+            <x-ruka-avatar size="md" />
+            <span class="rf-ruka-dock__label">Tanya Ruka</span>
+        </button>
+    </div>
+
+    <aside
+        class="rf-slab rf-chat"
+        id="ruka-panel"
+        data-ruka-panel
+        aria-labelledby="ruka-panel-title"
+        hidden
+    >
+        <header class="rf-chat__head">
+            <div class="rf-chat__identity">
+                <x-ruka-avatar size="sm" />
+                <div>
+                    <h2 class="h5 mb-0" id="ruka-panel-title">Ruka</h2>
+                    @auth
+                        <span class="rf-muted rf-small rf-num">
+                            Sisa kuota hari ini: <strong data-ruka-remaining>{{ $rukaRemainingToday }}</strong>/{{ $rukaDailyLimit }}
+                        </span>
+                    @else
+                        <span class="rf-muted rf-small">Asisten belajar fisika</span>
+                    @endauth
+                </div>
+            </div>
+
+            <div class="rf-chat__head-actions">
+                @auth
+                    <button
+                        type="button"
+                        class="rf-btn rf-btn--tertiary rf-chat__clear"
+                        data-ruka-clear
+                        data-clear-url="{{ route('ruka.destroy', $lesson) }}"
+                        title="Hapus riwayat percakapan di materi ini"
+                    >
+                        <x-icon name="trash" /> Hapus chat
+                    </button>
+                @endauth
+                <button
+                    type="button"
+                    class="rf-btn rf-btn--tertiary rf-btn--icon"
+                    data-ruka-close
+                    aria-label="Tutup panel Ruka"
+                >
+                    <x-icon name="x" />
+                </button>
+            </div>
+        </header>
+
+        @auth
+            <div class="rf-chat__messages" data-ruka-messages aria-live="polite">
+                {{-- Sapaan awal spesifik pada materi yang sedang dibuka (DESIGN §6) --}}
+                <div class="rf-chat__item rf-chat__item--assistant" data-ruka-greeting>
+                    <x-ruka-avatar size="sm" />
+                    <div class="rf-chat__bubble rf-chat__bubble--assistant">
+                        <p class="mb-0">Lagi baca <strong>{{ $lesson->title }}</strong>? Tanya bagian yang belum nyambung.</p>
+                    </div>
+                </div>
+
+                @foreach ($rukaMessages as $msg)
+                    @if ($msg['role'] === \App\Models\RukaMessage::ROLE_USER)
+                        <div class="rf-chat__item rf-chat__item--user" data-ruka-history-item>
+                            <div class="rf-chat__bubble rf-chat__bubble--user" data-math-root>
+                                {!! $msg['html'] !!}
+                            </div>
+                        </div>
+                    @else
+                        <div class="rf-chat__item rf-chat__item--assistant" data-ruka-history-item>
+                            <x-ruka-avatar size="sm" />
+                            <div class="rf-chat__bubble rf-chat__bubble--assistant rf-lesson__prose" data-math-root>
+                                {!! $msg['html'] !!}
+                            </div>
+                        </div>
+                    @endif
+                @endforeach
+
+                <div class="rf-chat__item rf-chat__item--assistant" data-ruka-typing hidden>
+                    <x-ruka-avatar size="sm" />
+                    <div class="rf-chat__bubble rf-chat__bubble--assistant rf-chat__typing">
+                        <span>Ruka sedang mengetik...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="rf-alert rf-alert--error rf-chat__alert" data-ruka-error role="alert" hidden>
+                <x-icon name="alert-circle" />
+                <div class="rf-alert__body" data-ruka-error-text>Ruka lagi nggak bisa jawab. Coba lagi sebentar.</div>
+            </div>
+
+            <div class="rf-alert rf-alert--info rf-chat__alert" data-ruka-limit-banner role="status" @if ($rukaRemainingToday > 0) hidden @endif>
+                <x-icon name="info" />
+                <div class="rf-alert__body">
+                    Batas pertanyaan ke Ruka hari ini sudah tercapai ({{ $rukaDailyLimit }} pesan per hari). Lanjutkan besok ya.
+                </div>
+            </div>
+
+            <form
+                class="rf-chat__form"
+                method="POST"
+                action="{{ route('ruka.store', $lesson) }}"
+                data-ruka-form
+                novalidate
+            >
+                @csrf
+                <label class="visually-hidden" for="ruka-input">Tulis pertanyaan ke Ruka</label>
+                <textarea
+                    class="rf-textarea rf-chat__input"
+                    id="ruka-input"
+                    name="message"
+                    rows="2"
+                    maxlength="800"
+                    placeholder="Tulis pertanyaan tentang {{ $lesson->title }} (maks. 800 karakter)..."
+                    required
+                    data-ruka-input
+                    @disabled($rukaRemainingToday <= 0)
+                ></textarea>
+                <div class="rf-chat__form-bar">
+                    <span class="rf-muted rf-small rf-num"><span data-ruka-char-count>0</span>/800</span>
+                    <button
+                        type="submit"
+                        class="rf-btn rf-btn--primary"
+                        data-ruka-submit
+                        @disabled($rukaRemainingToday <= 0)
+                    >
+                        Tanya Ruka
+                    </button>
+                </div>
+            </form>
+        @else
+            <div class="rf-chat__guest">
+                <div class="rf-chat__item rf-chat__item--assistant mb-4">
+                    <x-ruka-avatar size="sm" />
+                    <div class="rf-chat__bubble rf-chat__bubble--assistant">
+                        <p class="mb-0">Lagi baca <strong>{{ $lesson->title }}</strong>? Masuk dulu supaya kita bisa bahas rumus dan langkah pengerjaan soal bareng.</p>
+                    </div>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <a class="rf-btn rf-btn--primary" href="{{ route('login') }}">Masuk untuk bertanya</a>
+                    <a class="rf-btn rf-btn--tertiary" href="{{ route('register') }}">Buat akun</a>
+                </div>
+            </div>
+        @endauth
+    </aside>
 </div>
 @endsection

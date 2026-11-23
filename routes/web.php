@@ -15,6 +15,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RukaController;
 use App\Http\Controllers\TryoutController;
 use Illuminate\Support\Facades\Route;
 
@@ -55,6 +56,9 @@ Route::middleware('auth')->group(function (): void {
     Route::post('/diskusi/{thread}/balasan', [DiscussionController::class, 'storeReply'])->name('discussions.replies.store');
     Route::delete('/diskusi/{thread}', [DiscussionController::class, 'destroyThread'])->name('discussions.threads.destroy');
     Route::delete('/balasan/{reply}', [DiscussionController::class, 'destroyReply'])->name('discussions.replies.destroy');
+
+    Route::post('/materi/{lesson:slug}/ruka', [RukaController::class, 'store'])->name('ruka.store');
+    Route::delete('/materi/{lesson:slug}/ruka', [RukaController::class, 'destroy'])->name('ruka.destroy');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function (): void {

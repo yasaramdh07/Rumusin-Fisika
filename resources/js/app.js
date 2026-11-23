@@ -6,3 +6,4 @@ import './math';
 import './lesson-video';
 import './admin';
 import './tryout';
+import './ruka';

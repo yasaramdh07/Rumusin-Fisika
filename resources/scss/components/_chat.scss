@@ -1,0 +1,155 @@
+@use '../abstracts/mixins' as m;
+
+// Panel chat Ruka dan gelembung chat (DESIGN §4 & §6):
+// Dock bulat di kanan-bawah; klik membuka panel slab tinggi maks. 70vh (di mobile hampir penuh layar).
+// Gelembung Ruka: slab low rata kiri dengan avatar. Gelembung user: clay kuning rata kanan. Input chat: inset.
+.rf-chat {
+    position: fixed;
+    right: var(--rf-space-3);
+    left: var(--rf-space-3);
+    bottom: var(--rf-space-3);
+    z-index: 75;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 24px);
+    height: min(620px, 85vh);
+    padding: var(--rf-space-4);
+    @include m.respond-motion(opacity transform);
+
+    &[hidden] {
+        display: none !important;
+    }
+
+    @media (min-width: 768px) {
+        left: auto;
+        right: var(--rf-space-4);
+        bottom: 84px;
+        width: 420px;
+        max-height: 70vh;
+        height: 70vh;
+    }
+}
+
+.rf-chat__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+    padding-bottom: var(--rf-space-3);
+    border-bottom: 2px solid var(--rf-base-lo);
+    flex: 0 0 auto;
+}
+
+.rf-chat__identity {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+    min-width: 0;
+}
+
+.rf-chat__head-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-2);
+    flex: 0 0 auto;
+}
+
+.rf-chat__clear {
+    padding: 0 var(--rf-space-3);
+    font-size: var(--rf-text-xs);
+}
+
+.rf-chat__messages {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    padding: var(--rf-space-4) var(--rf-space-1);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-3);
+}
+
+.rf-chat__item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--rf-space-2);
+
+    &[hidden] {
+        display: none !important;
+    }
+
+    &--assistant {
+        justify-content: flex-start;
+    }
+
+    &--user {
+        justify-content: flex-end;
+    }
+}
+
+.rf-chat__bubble {
+    max-width: 84%;
+    padding: var(--rf-space-3) var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    font-size: var(--rf-text-sm);
+    line-height: 1.55;
+    overflow-wrap: anywhere;
+
+    > *:last-child {
+        margin-bottom: 0;
+    }
+
+    // Ruka: slab low rata kiri
+    &--assistant {
+        background: var(--rf-base);
+        color: var(--rf-ink);
+        border-top-left-radius: 6px;
+        @include m.surface-low;
+    }
+
+    // User: clay kuning rata kanan
+    &--user {
+        background: var(--rf-yellow);
+        color: var(--rf-ink);
+        border-top-right-radius: 6px;
+        @include m.clay-yellow;
+    }
+}
+
+.rf-chat__typing {
+    font-style: italic;
+    color: var(--rf-ink-soft);
+}
+
+.rf-chat__alert {
+    flex: 0 0 auto;
+    margin-bottom: var(--rf-space-3);
+
+    &[hidden] {
+        display: none !important;
+    }
+}
+
+.rf-chat__form {
+    flex: 0 0 auto;
+    padding-top: var(--rf-space-3);
+    border-top: 2px solid var(--rf-base-lo);
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-2);
+}
+
+.rf-chat__input {
+    min-height: 68px;
+    max-height: 140px;
+}
+
+.rf-chat__form-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+}
+
+.rf-chat__guest {
+    padding: var(--rf-space-4) 0 var(--rf-space-2);
+}
