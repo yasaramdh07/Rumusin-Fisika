@@ -21,4 +21,13 @@ class Reply extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function canBeDeletedBy(?User $user): bool
+    {
+        if (! $user) {
+            return false;
+        }
+
+        return $user->isAdmin() || (int) $this->user_id === (int) $user->id;
+    }
 }

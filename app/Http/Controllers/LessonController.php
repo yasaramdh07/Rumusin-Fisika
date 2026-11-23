@@ -33,10 +33,18 @@ class LessonController extends Controller
 
         $lesson->load(['category', 'videos']);
 
+        $threads = $lesson->threads()
+            ->with(['user:id,name,username,role', 'replies.user:id,name,username,role'])
+            ->orderByDesc('created_at')
+            ->orderByDesc('id')
+            ->paginate(10)
+            ->fragment('diskusi');
+
         return view('lessons.show', [
             'lesson' => $lesson,
             'bodyHtml' => $renderer->render($lesson->body),
             'formulasHtml' => $renderer->render($lesson->formulas),
+            'threads' => $threads,
         ]);
     }
 }

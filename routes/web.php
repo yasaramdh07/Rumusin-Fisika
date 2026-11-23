@@ -2,12 +2,14 @@
 
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\DiscussionController as AdminDiscussionController;
 use App\Http\Controllers\Admin\LessonController as AdminLessonController;
 use App\Http\Controllers\Admin\LessonVideoController as AdminLessonVideoController;
 use App\Http\Controllers\Admin\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admin\TryoutController as AdminTryoutController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\DiscussionController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\LeaderboardController;
@@ -48,6 +50,11 @@ Route::middleware('auth')->group(function (): void {
         ->name('tryouts.start');
 
     Route::get('/leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index');
+
+    Route::post('/materi/{lesson:slug}/diskusi', [DiscussionController::class, 'storeThread'])->name('discussions.threads.store');
+    Route::post('/diskusi/{thread}/balasan', [DiscussionController::class, 'storeReply'])->name('discussions.replies.store');
+    Route::delete('/diskusi/{thread}', [DiscussionController::class, 'destroyThread'])->name('discussions.threads.destroy');
+    Route::delete('/balasan/{reply}', [DiscussionController::class, 'destroyReply'])->name('discussions.replies.destroy');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function (): void {
@@ -93,6 +100,10 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::post('/tryout/{tryout}/aktifkan', [AdminTryoutController::class, 'activate'])->name('tryouts.activate');
     Route::post('/tryout/{tryout}/soal/{question}/naik', [AdminTryoutController::class, 'moveQuestionUp'])->name('tryouts.questions.up');
     Route::post('/tryout/{tryout}/soal/{question}/turun', [AdminTryoutController::class, 'moveQuestionDown'])->name('tryouts.questions.down');
+
+    Route::get('/diskusi', [AdminDiscussionController::class, 'index'])->name('discussions.index');
+    Route::delete('/diskusi/{thread}', [AdminDiscussionController::class, 'destroyThread'])->name('discussions.threads.destroy');
+    Route::delete('/balasan/{reply}', [AdminDiscussionController::class, 'destroyReply'])->name('discussions.replies.destroy');
 });
 
 // Halaman komponen untuk memeriksa konsistensi dan kontras; hanya di lokal.

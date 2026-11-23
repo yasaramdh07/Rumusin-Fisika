@@ -25,6 +25,15 @@ class Thread extends Model
 
     public function replies(): HasMany
     {
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->orderBy('created_at')->orderBy('id');
+    }
+
+    public function canBeDeletedBy(?User $user): bool
+    {
+        if (! $user) {
+            return false;
+        }
+
+        return $user->isAdmin() || (int) $this->user_id === (int) $user->id;
     }
 }
