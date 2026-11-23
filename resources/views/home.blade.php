@@ -39,7 +39,14 @@
                 </div>
                 <div class="rf-home__note">
                     <dt>Peringkat minggu ini</dt>
-                    <dd>Dihitung setelah mengerjakan try out. <a href="{{ url('/leaderboard') }}">Lihat leaderboard</a></dd>
+                    <dd class="rf-num">
+                        @if ($weeklyRank !== null)
+                            #{{ $weeklyRank }} di {{ $latestActiveTryout?->title ?? 'try out aktif' }}.
+                            <a href="{{ route('leaderboard.index') }}">Lihat leaderboard</a>
+                        @else
+                            Belum masuk peringkat minggu ini. <a href="{{ route('leaderboard.index') }}">Lihat leaderboard</a>
+                        @endif
+                    </dd>
                 </div>
             </dl>
         </aside>

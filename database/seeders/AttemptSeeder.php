@@ -29,6 +29,8 @@ class AttemptSeeder extends Seeder
         $weekSpan = max(60, $weekStart->diffInSeconds($now));
 
         // [indeks user, jumlah benar, durasi detik, minggu ini? , pecahan minggu / hari lalu]
+        // Sebagian di minggu ini, sebagian bulan ini (di luar minggu ini), dan sebagian bulan lalu
+        // agar ketiga tab leaderboard (Mingguan, Bulanan, Semua waktu) menampilkan urutan berbeda.
         $plan = [
             [0, 9, 420, true, 0.20],
             [1, 10, 540, true, 0.35],
@@ -37,10 +39,10 @@ class AttemptSeeder extends Seeder
             [4, 6, 700, true, 0.80],
             [0, 7, 500, true, 0.90],
             [2, 9, 450, true, 0.95],
-            [0, 5, 800, false, 12],
+            [0, 10, 310, false, 10], // bulan ini (di luar minggu ini): user 1 naik ke peringkat 1 di tab Bulanan
             [1, 8, 650, false, 15],
-            [2, 10, 300, false, 40],
-            [3, 7, 560, false, 25],
+            [2, 10, 290, false, 45], // bulan lalu: user 3 naik ke peringkat 1 di tab Semua waktu
+            [3, 7, 560, false, 20],
             [4, 9, 480, false, 70],
         ];
 
