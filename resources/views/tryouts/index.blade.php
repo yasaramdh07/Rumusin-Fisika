@@ -18,7 +18,9 @@
             @foreach ($tryouts as $tryout)
                 <article class="rf-slab rf-lessons__item">
                     <div class="rf-lessons__item-body">
-                        <h2 class="h4">{{ $tryout->title }}</h2>
+                        <h2 class="h4">
+                            <a class="rf-lessons__item-link" href="{{ route('tryouts.show', $tryout) }}">{{ $tryout->title }}</a>
+                        </h2>
                         @if ($tryout->description)
                             <p class="rf-prose rf-muted mb-2">{{ $tryout->description }}</p>
                         @endif
@@ -31,7 +33,7 @@
                         </div>
                     </div>
                     <div class="rf-lessons__item-action">
-                        <a class="rf-btn rf-btn--primary" href="{{ url('/tryout/'.$tryout->slug) }}">Mulai try out</a>
+                        <a class="rf-btn rf-btn--primary" href="{{ route('tryouts.show', $tryout) }}">Mulai try out</a>
                     </div>
                 </article>
             @endforeach

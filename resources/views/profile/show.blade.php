@@ -48,7 +48,7 @@
                             @foreach ($attempts as $attempt)
                                 <tr>
                                     <td>
-                                        {{ $attempt->tryout?->title ?? 'Try out' }}
+                                        <a href="{{ route('tryouts.result', $attempt) }}">{{ $attempt->tryout?->title ?? 'Try out' }}</a>
                                         @if ($attempt->is_late)
                                             <span class="rf-tag">Terlambat</span>
                                         @endif

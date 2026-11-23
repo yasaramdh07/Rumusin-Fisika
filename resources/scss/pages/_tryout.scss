@@ -1,0 +1,381 @@
+@use '../abstracts/mixins' as m;
+
+// Halaman detail, pengerjaan, dan hasil try out (DESIGN §4 & §5.3).
+.rf-tryout-detail {
+    padding-top: var(--rf-space-5);
+    padding-bottom: var(--rf-space-7);
+}
+
+.rf-tryout-detail__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-6);
+
+    @media (min-width: 992px) {
+        grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+        align-items: start;
+    }
+}
+
+.rf-tryout-detail__main {
+    h1 {
+        margin-bottom: var(--rf-space-3);
+    }
+}
+
+.rf-tryout-detail__meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--rf-space-4);
+    margin: var(--rf-space-5) 0;
+    padding: var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    @include m.surface-inset;
+
+    dt {
+        font-size: var(--rf-text-xs);
+        font-weight: 700;
+        color: var(--rf-ink-soft);
+        margin-bottom: 2px;
+    }
+
+    dd {
+        margin: 0;
+        font-weight: 700;
+    }
+}
+
+.rf-tryout-history-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-3);
+}
+
+.rf-tryout-history-list__item {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    padding-top: var(--rf-space-3);
+    border-top: 1px solid var(--rf-base-lo);
+
+    &:first-child {
+        padding-top: 0;
+        border-top: 0;
+    }
+}
+
+// Halaman pengerjaan try out
+.rf-tryout-work {
+    padding-top: var(--rf-space-5);
+    padding-bottom: var(--rf-space-8);
+}
+
+.rf-tryout-work__bar {
+    position: sticky;
+    top: 88px;
+    z-index: 40;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    padding: var(--rf-space-3) var(--rf-space-5);
+    margin-bottom: var(--rf-space-5);
+}
+
+.rf-tryout-timer {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+    padding: var(--rf-space-2) var(--rf-space-4);
+    border-radius: var(--rf-radius-pill);
+    background: var(--rf-base);
+    @include m.surface-inset;
+
+    &.is-expired {
+        background: var(--rf-red-soft);
+        color: var(--rf-red-deep);
+    }
+}
+
+.rf-tryout-timer__label {
+    font-size: var(--rf-text-xs);
+    font-weight: 700;
+    color: var(--rf-ink-soft);
+}
+
+.rf-tryout-timer__clock {
+    font-family: var(--rf-font-display);
+    font-size: var(--rf-text-lg);
+}
+
+.rf-tryout-work__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-6);
+
+    @media (min-width: 992px) {
+        grid-template-columns: minmax(0, 1fr) 300px;
+        align-items: start;
+    }
+}
+
+.rf-tryout-work__questions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-5);
+    min-width: 0;
+}
+
+.rf-tryout-work__side {
+    @media (min-width: 992px) {
+        position: sticky;
+        top: 184px;
+    }
+}
+
+.rf-tryout-q__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+    margin-bottom: var(--rf-space-3);
+}
+
+.rf-tryout-q__body {
+    margin-bottom: var(--rf-space-4);
+}
+
+.rf-tryout-options {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-3);
+}
+
+// Komponen Opsi Jawaban (DESIGN §4):
+// Tile low dengan huruf A-D di lingkaran clay kecil; terpilih: clay kuning + tanda centang.
+.rf-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-3);
+    min-height: 52px;
+    padding: var(--rf-space-3) var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    border: 2px solid transparent;
+    cursor: pointer;
+    @include m.surface-low;
+    @include m.respond-motion;
+
+    &:hover:not(.rf-option--static) {
+        border-color: var(--rf-base-lo);
+    }
+
+    &:has(.rf-option__input:focus-visible) {
+        @include m.focus-ring;
+    }
+
+    &.is-selected {
+        background: var(--rf-yellow);
+        @include m.clay-yellow;
+
+        .rf-option__letter {
+            background: var(--rf-red);
+            color: var(--rf-base-hi);
+            @include m.clay-red;
+        }
+
+        .rf-option__check {
+            display: inline-flex;
+        }
+    }
+
+    &--static {
+        cursor: default;
+
+        &.is-correct {
+            border-color: var(--rf-ok);
+        }
+
+        &.is-wrong {
+            background: var(--rf-red-soft);
+            border-color: var(--rf-red-deep);
+        }
+    }
+}
+
+.rf-option__letter {
+    flex: 0 0 auto;
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--rf-yellow);
+    color: var(--rf-ink);
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    font-size: var(--rf-text-xs);
+    @include m.clay-yellow;
+}
+
+.rf-option__text {
+    flex: 1 1 auto;
+    min-width: 0;
+
+    p {
+        margin: 0;
+    }
+}
+
+.rf-option__check {
+    display: none;
+    align-items: center;
+    gap: 4px;
+    flex: 0 0 auto;
+    font-weight: 700;
+    font-size: var(--rf-text-xs);
+    color: var(--rf-ink);
+}
+
+.rf-option__badges {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-2);
+    flex: 0 0 auto;
+}
+
+// Peta soal
+.rf-tryout-map__grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--rf-space-2);
+}
+
+.rf-tryout-map__dot {
+    display: grid;
+    place-items: center;
+    min-height: 44px;
+    border-radius: var(--rf-radius-input);
+    background: var(--rf-base);
+    color: var(--rf-ink);
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    text-decoration: none;
+    @include m.surface-inset;
+
+    &:hover {
+        color: var(--rf-ink);
+    }
+
+    &.is-answered {
+        background: var(--rf-yellow);
+        @include m.clay-yellow;
+    }
+}
+
+// Halaman hasil
+.rf-tryout-result {
+    padding-top: var(--rf-space-5);
+    padding-bottom: var(--rf-space-8);
+}
+
+.rf-tryout-result__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-5);
+    margin-bottom: var(--rf-space-6);
+
+    @media (min-width: 768px) {
+        grid-template-columns: minmax(0, 1.5fr) 220px;
+        align-items: center;
+    }
+}
+
+.rf-tryout-result__stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rf-space-5);
+    margin: 0;
+
+    dt {
+        font-size: var(--rf-text-xs);
+        font-weight: 700;
+        color: var(--rf-ink-soft);
+    }
+
+    dd {
+        margin: 0;
+        font-weight: 700;
+        font-size: var(--rf-text-md);
+    }
+}
+
+.rf-tryout-result__score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--rf-space-5);
+    border-radius: var(--rf-radius-slab);
+    background: var(--rf-base);
+    text-align: center;
+    @include m.surface-inset;
+}
+
+.rf-tryout-result__score-label {
+    font-size: var(--rf-text-xs);
+    font-weight: 700;
+    color: var(--rf-ink-soft);
+}
+
+.rf-tryout-result__score-value {
+    font-family: var(--rf-font-display);
+    font-size: var(--rf-text-3xl);
+    line-height: 1.05;
+    color: var(--rf-ink);
+    margin: var(--rf-space-1) 0;
+}
+
+.rf-verdict {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px var(--rf-space-3);
+    border-radius: var(--rf-radius-pill);
+    font-weight: 700;
+    font-size: var(--rf-text-xs);
+
+    &--ok {
+        background: color-mix(in srgb, var(--rf-ok) 15%, var(--rf-base));
+        color: var(--rf-ok);
+    }
+
+    &--wrong {
+        background: var(--rf-red-soft);
+        color: var(--rf-red-deep);
+    }
+}
+
+.rf-tryout-explanation {
+    padding: var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    @include m.surface-inset;
+}

@@ -36,6 +36,15 @@ Route::middleware('auth')->group(function (): void {
     Route::put('/profil', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::get('/tryout', [TryoutController::class, 'index'])->name('tryouts.index');
+    Route::get('/tryout/percobaan/{attempt}', [TryoutController::class, 'attempt'])->name('tryouts.attempt');
+    Route::post('/tryout/percobaan/{attempt}/kirim', [TryoutController::class, 'submit'])
+        ->middleware('throttle:15,1')
+        ->name('tryouts.submit');
+    Route::get('/tryout/percobaan/{attempt}/hasil', [TryoutController::class, 'result'])->name('tryouts.result');
+    Route::get('/tryout/{tryout:slug}', [TryoutController::class, 'show'])->name('tryouts.show');
+    Route::post('/tryout/{tryout}/mulai', [TryoutController::class, 'start'])
+        ->middleware('throttle:15,1')
+        ->name('tryouts.start');
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function (): void {

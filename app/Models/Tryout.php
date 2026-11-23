@@ -36,6 +36,24 @@ class Tryout extends Model
             ->where(fn (Builder $q) => $q->whereNull('ends_at')->orWhere('ends_at', '>=', $now));
     }
 
+    public function isAvailable(): bool
+    {
+        if (! $this->is_active) {
+            return false;
+        }
+
+        $now = now();
+        if ($this->starts_at !== null && $this->starts_at->greaterThan($now)) {
+            return false;
+        }
+
+        if ($this->ends_at !== null && $this->ends_at->lessThan($now)) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function lesson(): BelongsTo
     {
         return $this->belongsTo(Lesson::class);
