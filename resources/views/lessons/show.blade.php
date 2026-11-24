@@ -25,6 +25,16 @@
                 </div>
             </article>
 
+            @if (in_array($lesson->category->slug, ['gerak', 'listrik', 'gaya-newton', 'energi', 'archimedes', 'elektronika-dasar'], true))
+                <section class="rf-slab rf-lesson__tools" id="simulasi-kalkulator" aria-labelledby="tools-heading">
+                    <div class="rf-lesson__videos-head">
+                        <h2 class="h3" id="tools-heading">Simulasi &amp; Kalkulator Rumus</h2>
+                        <p class="rf-muted rf-small mb-0">Coba ubah nilai besaran di bawah dan lihat hasil perhitungannya langsung di Lembar Rumus.</p>
+                    </div>
+                    <div data-physics-tool="{{ $lesson->category->slug }}"></div>
+                </section>
+            @endif
+
             @if ($lesson->videos->isNotEmpty())
                 @php $firstVideo = $lesson->videos->first(); @endphp
                 <section class="rf-slab rf-lesson__videos" id="tahapan-video" aria-labelledby="video-heading">

@@ -39,6 +39,8 @@ class LessonTest extends TestCase
             ->assertSee('Gerak Lurus (GLB dan GLBB)')
             ->assertSee('Lembar Rumus')
             ->assertSee('$v_t = v_0 + a\,t$', false)
+            ->assertSee('data-physics-tool="gerak"', false)
+            ->assertSee('Simulasi &amp; Kalkulator Rumus', false)
             ->assertSee('youtube-nocookie.com/embed/jNQXAC9IVRw', false)
             ->assertSee('data-youtube-id="9bZkp7q19f0"', false)
             ->assertSee('data-youtube-id="dQw4w9WgXcQ"', false)

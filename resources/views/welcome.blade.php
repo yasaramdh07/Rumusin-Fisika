@@ -21,8 +21,30 @@
                 <h2 class="rf-sheet__title">Lembar Rumus: {{ $featuredLesson?->title ?? 'Gerak Lurus' }}</h2>
                 <div class="rf-sheet__paper" data-math-root>
                     {!! $heroFormulasHtml !!}
+
+                    <div class="rf-hero-calc" data-hero-mini-calc>
+                        <p class="rf-small fw-bold mb-2">Coba hitung cepat GLBB ($v_t = v_0 + a\,t$ dan $s = v_0\,t + \tfrac{1}{2}a\,t^2$):</p>
+                        <div class="rf-hero-calc__inputs">
+                            <div class="rf-field">
+                                <label class="rf-label rf-small" for="hero-v0">v₀ (m/s)</label>
+                                <input class="rf-input rf-num" id="hero-v0" type="number" step="any" value="0" data-hero-v0>
+                            </div>
+                            <div class="rf-field">
+                                <label class="rf-label rf-small" for="hero-a">a (m/s²)</label>
+                                <input class="rf-input rf-num" id="hero-a" type="number" step="any" value="4" data-hero-a>
+                            </div>
+                            <div class="rf-field">
+                                <label class="rf-label rf-small" for="hero-t">t (s)</label>
+                                <input class="rf-input rf-num" id="hero-t" type="number" step="any" value="5" data-hero-t>
+                            </div>
+                        </div>
+                        <div class="rf-hero-calc__results rf-num">
+                            <span>Kecepatan akhir $v_t$: <strong data-hero-vt>20.0 m/s</strong></span>
+                            <span>Jarak $s$: <strong data-hero-s>50.0 m</strong></span>
+                        </div>
+                    </div>
                 </div>
-                <p class="rf-sheet__note">Menempel di samping isi materi supaya kamu tidak perlu bolak-balik halaman saat membaca contoh soal.</p>
+                <p class="rf-sheet__note">Ubah angka di atas untuk menguji rumus langsung di Lembar Rumus.</p>
             </div>
         </aside>
     </section>

@@ -7,3 +7,4 @@ import './lesson-video';
 import './admin';
 import './tryout';
 import './ruka';
+import './tools';

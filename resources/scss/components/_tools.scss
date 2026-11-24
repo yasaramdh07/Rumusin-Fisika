@@ -1,0 +1,154 @@
+@use '../abstracts/mixins' as m;
+
+// Komponen Simulasi & Kalkulator Fisika (DESIGN §3 & §4: input inset, hasil di Lembar Rumus).
+.rf-tool {
+    display: flex;
+    flex-direction: column;
+    gap: var(--rf-space-6);
+}
+
+.rf-tool__block {
+    padding-top: var(--rf-space-4);
+    border-top: 2px solid var(--rf-base-lo);
+
+    &:first-child {
+        padding-top: 0;
+        border-top: 0;
+    }
+}
+
+.rf-tool__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    margin-bottom: var(--rf-space-4);
+}
+
+.rf-tool__grid-2,
+.rf-tool__grid-3,
+.rf-tool__grid-4 {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--rf-space-3);
+}
+
+@media (min-width: 768px) {
+    .rf-tool__grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .rf-tool__grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .rf-tool__grid-4 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+.rf-tool__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--rf-space-3);
+}
+
+.rf-sim-stage {
+    border-radius: var(--rf-radius-tile);
+    overflow: hidden;
+    background: var(--rf-base);
+    margin-bottom: var(--rf-space-4);
+    @include m.surface-inset;
+}
+
+.rf-sim-canvas {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.rf-sim-readouts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--rf-space-3);
+    margin: 0 0 var(--rf-space-4);
+    padding: var(--rf-space-3) var(--rf-space-4);
+    border-radius: var(--rf-radius-tile);
+    background: var(--rf-base);
+    @include m.surface-inset;
+
+    @media (min-width: 768px) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    dt {
+        font-size: var(--rf-text-xs);
+        font-weight: 700;
+        color: var(--rf-ink-soft);
+    }
+
+    dd {
+        margin: 0;
+        font-family: var(--rf-font-display);
+        font-weight: 800;
+        font-size: var(--rf-text-md);
+    }
+}
+
+.rf-sim-controls {
+    margin-bottom: var(--rf-space-4);
+
+    input[type='range'] {
+        width: 100%;
+        accent-color: var(--rf-red);
+        min-height: 36px;
+        cursor: pointer;
+    }
+}
+
+.rf-calc-outcomes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--rf-space-3);
+
+    > div {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+    }
+
+    span {
+        font-size: var(--rf-text-xs);
+        font-weight: 700;
+        color: var(--rf-ink-soft);
+    }
+
+    strong {
+        font-family: var(--rf-font-display);
+        font-size: var(--rf-text-lg);
+        color: var(--rf-ink);
+    }
+}
+
+// Kalkulator mini di hero landing (DESIGN §5.1)
+.rf-hero-calc {
+    margin-top: var(--rf-space-4);
+    padding-top: var(--rf-space-3);
+    border-top: 2px dashed var(--rf-base-lo);
+}
+
+.rf-hero-calc__inputs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--rf-space-2);
+}
+
+.rf-hero-calc__results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--rf-space-2);
+    margin-top: var(--rf-space-3);
+    font-size: var(--rf-text-sm);
+}
