@@ -77,10 +77,10 @@ export function mountListrikTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Simulasi Rangkaian Listrik</h3>
-                    <div class="rf-chips">
-                        <button type="button" class="rf-chip is-active" data-l-sim="ohm" aria-pressed="true">Ohm</button>
-                        <button type="button" class="rf-chip" data-l-sim="seri" aria-pressed="false">Seri</button>
-                        <button type="button" class="rf-chip" data-l-sim="paralel" aria-pressed="false">Paralel</button>
+                    <div class="rf-chips" role="group" aria-label="Mode simulasi listrik">
+                        <button type="button" class="rf-chip is-active" data-l-sim="ohm" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Ohm</button>
+                        <button type="button" class="rf-chip" data-l-sim="seri" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Seri</button>
+                        <button type="button" class="rf-chip" data-l-sim="paralel" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Paralel</button>
                     </div>
                 </div>
 
@@ -110,10 +110,10 @@ export function mountListrikTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Kalkulator Listrik</h3>
-                    <div class="rf-chips">
-                        <button type="button" class="rf-chip is-active" data-l-tab="ohm" aria-pressed="true">Hukum Ohm</button>
-                        <button type="button" class="rf-chip" data-l-tab="daya" aria-pressed="false">Daya Listrik</button>
-                        <button type="button" class="rf-chip" data-l-tab="rumahan" aria-pressed="false">Tagihan Rumahan</button>
+                    <div class="rf-chips" role="group" aria-label="Mode kalkulator listrik">
+                        <button type="button" class="rf-chip is-active" data-l-tab="ohm" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Hukum Ohm</button>
+                        <button type="button" class="rf-chip" data-l-tab="daya" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Daya Listrik</button>
+                        <button type="button" class="rf-chip" data-l-tab="rumahan" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Tagihan Rumahan</button>
                     </div>
                 </div>
 

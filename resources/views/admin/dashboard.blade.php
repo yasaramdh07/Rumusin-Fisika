@@ -26,7 +26,7 @@
                 <tr>
                     <td>Pengguna terdaftar</td>
                     <td class="rf-table__num"><strong>{{ $userCount }}</strong></td>
-                    <td class="rf-table__actions"><a class="rf-btn rf-btn--tertiary" href="{{ url('/admin/pengguna') }}">Lihat pengguna</a></td>
+                    <td class="rf-table__actions"><a class="rf-btn rf-btn--tertiary" href="{{ route('admin.users.index') }}">Lihat pengguna</a></td>
                 </tr>
                 <tr>
                     <td>Materi</td>

@@ -50,9 +50,9 @@ export function mountGerakTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Simulasi Gerak Lurus</h3>
-                    <div class="rf-chips" role="tablist" aria-label="Mode simulasi gerak">
-                        <button type="button" class="rf-chip is-active" data-sim-tab="glb" aria-pressed="true">GLB</button>
-                        <button type="button" class="rf-chip" data-sim-tab="glbb" aria-pressed="false">GLBB</button>
+                    <div class="rf-chips" role="group" aria-label="Mode simulasi gerak">
+                        <button type="button" class="rf-chip is-active" data-sim-tab="glb" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> GLB</button>
+                        <button type="button" class="rf-chip" data-sim-tab="glbb" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> GLBB</button>
                     </div>
                 </div>
 
@@ -78,9 +78,9 @@ export function mountGerakTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Kalkulator Rumus Gerak</h3>
-                    <div class="rf-chips" role="tablist" aria-label="Mode kalkulator gerak">
-                        <button type="button" class="rf-chip is-active" data-calc-tab="glb" aria-pressed="true">GLB (s = v · t)</button>
-                        <button type="button" class="rf-chip" data-calc-tab="glbb" aria-pressed="false">GLBB</button>
+                    <div class="rf-chips" role="group" aria-label="Mode kalkulator gerak">
+                        <button type="button" class="rf-chip is-active" data-calc-tab="glb" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> GLB (s = v · t)</button>
+                        <button type="button" class="rf-chip" data-calc-tab="glbb" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> GLBB</button>
                     </div>
                 </div>
 

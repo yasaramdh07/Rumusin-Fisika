@@ -53,9 +53,9 @@ export function mountArchimedesTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Kalkulator Hukum Archimedes</h3>
-                    <div class="rf-chips">
-                        <button type="button" class="rf-chip is-active" data-a-tab="fa" aria-pressed="true">Gaya Apung (Fa = ρ · g · V)</button>
-                        <button type="button" class="rf-chip" data-a-tab="rho" aria-pressed="false">Massa Jenis (ρ = m / V)</button>
+                    <div class="rf-chips" role="group" aria-label="Mode kalkulator Archimedes">
+                        <button type="button" class="rf-chip is-active" data-a-tab="fa" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Gaya Apung (Fa = ρ · g · V)</button>
+                        <button type="button" class="rf-chip" data-a-tab="rho" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Massa Jenis (ρ = m / V)</button>
                     </div>
                 </div>
 

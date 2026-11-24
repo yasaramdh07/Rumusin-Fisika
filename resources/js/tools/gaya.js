@@ -60,10 +60,10 @@ export function mountGayaTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Kalkulator Hukum Newton</h3>
-                    <div class="rf-chips">
-                        <button type="button" class="rf-chip is-active" data-g-tab="fma" aria-pressed="true">F = m · a</button>
-                        <button type="button" class="rf-chip" data-g-tab="berat" aria-pressed="false">Berat (w = m · g)</button>
-                        <button type="button" class="rf-chip" data-g-tab="res" aria-pressed="false">Resultan Gaya</button>
+                    <div class="rf-chips" role="group" aria-label="Mode kalkulator gaya">
+                        <button type="button" class="rf-chip is-active" data-g-tab="fma" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> F = m · a</button>
+                        <button type="button" class="rf-chip" data-g-tab="berat" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Berat (w = m · g)</button>
+                        <button type="button" class="rf-chip" data-g-tab="res" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Resultan Gaya</button>
                     </div>
                 </div>
 

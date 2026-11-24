@@ -76,10 +76,10 @@ export function mountEnergiTool(container) {
             <div class="rf-tool__block">
                 <div class="rf-tool__head">
                     <h3 class="h4 mb-0">Kalkulator Usaha dan Energi</h3>
-                    <div class="rf-chips">
-                        <button type="button" class="rf-chip is-active" data-e-tab="ek" aria-pressed="true">Energi Kinetik</button>
-                        <button type="button" class="rf-chip" data-e-tab="ep" aria-pressed="false">Energi Potensial</button>
-                        <button type="button" class="rf-chip" data-e-tab="usaha" aria-pressed="false">Usaha (W = F · s)</button>
+                    <div class="rf-chips" role="group" aria-label="Mode kalkulator energi">
+                        <button type="button" class="rf-chip is-active" data-e-tab="ek" aria-pressed="true"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Energi Kinetik</button>
+                        <button type="button" class="rf-chip" data-e-tab="ep" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Energi Potensial</button>
+                        <button type="button" class="rf-chip" data-e-tab="usaha" aria-pressed="false"><svg class="rf-icon rf-chip__check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M20 6 9 17l-5-5"/></svg> Usaha (W = F · s)</button>
                     </div>
                 </div>
 
