@@ -8,6 +8,7 @@ use App\Models\Question;
 use App\Models\Tryout;
 use App\Models\TryoutAttempt;
 use App\Models\User;
+use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
@@ -167,5 +168,58 @@ class QaAuditTest extends TestCase
         $this->assertLessThanOrEqual(6, $adminUsersQueries, "Terdeteksi potensi N+1 di /admin/pengguna ({$adminUsersQueries} query).");
 
         DB::disableQueryLog();
+    }
+
+    public function test_seeded_v02_content_has_no_n_plus_one_and_does_not_leak_answers_or_api_key(): void
+    {
+        config([
+            'rumusin.seed_password' => 'seed-qa-secret',
+            'rumusin.ai.api_key' => 'AIzaSyFakeSecretKeyForQaAudit999',
+        ]);
+
+        $this->seed([
+            \Database\Seeders\CategorySeeder::class,
+            \Database\Seeders\LessonSeeder::class,
+            \Database\Seeders\QuestionSeeder::class,
+            \Database\Seeders\TryoutSeeder::class,
+        ]);
+
+        $student = $this->makeStudent('v02');
+
+        // 1. Cek N+1 di /materi pada data hasil seeder lengkap v0.2 (6 kategori, 6 materi, 6 video)
+        DB::flushQueryLog();
+        DB::enableQueryLog();
+        $materiRes = $this->get('/materi');
+        $materiRes->assertOk()
+            ->assertDontSee('AIzaSyFakeSecretKeyForQaAudit999');
+        $this->assertLessThanOrEqual(6, count(DB::getQueryLog()));
+
+        // 2. Cek N+1 di /tryout pada data hasil seeder lengkap v0.2 (7 paket try out aktif, 37 soal)
+        DB::flushQueryLog();
+        $tryoutRes = $this->actingAs($student)->get('/tryout');
+        $tryoutRes->assertOk()
+            ->assertSee('Try Out Gabungan Fisika SMA')
+            ->assertDontSee('AIzaSyFakeSecretKeyForQaAudit999');
+        $this->assertLessThanOrEqual(6, count(DB::getQueryLog()));
+
+        DB::disableQueryLog();
+
+        // 3. Pastikan halaman pengerjaan Try Out Gabungan tidak membocorkan kunci jawaban atau pembahasan atau API key
+        $combinedTryout = Tryout::where('slug', 'tryout-gabungan-fisika-sma')->firstOrFail();
+        $startRes = $this->actingAs($student)->post(route('tryouts.start', $combinedTryout));
+        $attempt = TryoutAttempt::where('user_id', $student->id)
+            ->where('tryout_id', $combinedTryout->id)
+            ->whereNull('finished_at')
+            ->latest('id')
+            ->firstOrFail();
+
+        $startRes->assertRedirect(route('tryouts.attempt', $attempt));
+
+        $attemptRes = $this->actingAs($student)->get(route('tryouts.attempt', $attempt));
+        $attemptRes->assertOk()
+            ->assertSee('data-tryout-actionbar', false)
+            ->assertDontSee('data-bottombar=', false)
+            ->assertDontSee('correct_option')
+            ->assertDontSee('AIzaSyFakeSecretKeyForQaAudit999');
     }
 }
