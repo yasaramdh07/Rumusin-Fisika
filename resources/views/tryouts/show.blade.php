@@ -4,11 +4,13 @@
 
 @section('content')
 <div class="container rf-tryout-detail">
-    <nav class="rf-lesson__crumb" aria-label="Jejak halaman">
-        <a href="{{ route('tryouts.index') }}">Try out</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page">{{ $tryout->title }}</span>
-    </nav>
+    <x-pagehead>
+        <x-slot:crumbs>
+            <a href="{{ route('tryouts.index') }}">Try out</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{{ $tryout->title }}</span>
+        </x-slot:crumbs>
+    </x-pagehead>
 
     <div class="rf-tryout-detail__grid">
         <section class="rf-slab rf-slab--fold rf-tryout-detail__main" aria-labelledby="tryout-heading">

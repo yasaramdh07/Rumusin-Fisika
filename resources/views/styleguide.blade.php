@@ -21,14 +21,15 @@
 
 @section('content')
 <div class="container sg">
+    <x-pagehead title="Styleguide Rumusin" />
     <header class="sg-intro">
-        <h1>Styleguide Rumusin</h1>
         <p class="rf-prose rf-muted">Semua komponen beserta state-nya. Hover, fokus, dan aktif di sini dipaksa lewat kelas <code>.is-hover</code>, <code>.is-focus</code>, dan <code>.is-pressed</code> supaya bisa dibandingkan berdampingan. Coba juga tekan Tab untuk melihat fokus sungguhan.</p>
     </header>
 
     <div class="sg-layout">
         <nav class="sg-index" aria-label="Daftar komponen">
             <ul>
+                <li><a href="#navigasi">Navigasi bottom bar</a></li>
                 <li><a href="#warna">Warna</a></li>
                 <li><a href="#tipografi">Tipografi</a></li>
                 <li><a href="#elevasi">Elevasi dan slab</a></li>
@@ -46,6 +47,42 @@
         </nav>
 
         <div class="sg-body">
+
+            <section id="navigasi" class="sg-section">
+                <h2>Navigasi bottom bar, kepala halaman, &amp; mode fokus</h2>
+                <p class="rf-prose rf-muted">Seluruh navigasi aplikasi berada di bottom bar tunggal (tanpa navbar atas dan tanpa sidebar). Di bawah ini adalah pratinjau untuk tiga konteks (tamu, user, admin beserta panel "Lainnya"), action bar mode fokus try out, dan kepala halaman (<code>x-pagehead</code>).</p>
+
+                <div class="d-flex flex-column gap-4 mt-4">
+                    <div>
+                        <h3 class="h5 mb-2">1. Bottom bar konteks Tamu (<code>guest</code>)</h3>
+                        <x-bottombar context="guest" :static="true" forceActive="beranda" />
+                    </div>
+                    <div>
+                        <h3 class="h5 mb-2">2. Bottom bar konteks User masuk (<code>user</code>)</h3>
+                        <x-bottombar context="user" :static="true" forceActive="materi" />
+                    </div>
+                    <div style="padding-top: 230px;">
+                        <h3 class="h5 mb-2">3. Bottom bar konteks Admin + panel "Lainnya" terbuka (<code>admin</code>)</h3>
+                        <x-bottombar context="admin" :static="true" forceActive="lainnya" :openMore="true" />
+                    </div>
+                    <div>
+                        <h3 class="h5 mb-2">4. Action bar mode fokus Try out (<code>x-actionbar</code>)</h3>
+                        <x-actionbar
+                            :static="true"
+                            :questions="[['id' => 1, 'number' => 1], ['id' => 2, 'number' => 2], ['id' => 3, 'number' => 3], ['id' => 4, 'number' => 4], ['id' => 5, 'number' => 5]]"
+                            :savedAnswers="[1 => 'a', 2 => 'c']"
+                            :remainingSeconds="760"
+                            :formId="null"
+                        />
+                    </div>
+                    <div>
+                        <h3 class="h5 mb-2">5. Kepala halaman (<code>x-pagehead</code>)</h3>
+                        <div class="rf-slab p-4">
+                            <x-pagehead title="Contoh Kepala Halaman" subtitle="Menggantikan navbar atas di seluruh halaman" :headingTag="'h4'" />
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section id="warna" class="sg-section">
                 <h2>Warna</h2>
@@ -243,7 +280,7 @@
                 <h2>Ikon</h2>
                 <p class="rf-muted rf-prose">Satu set: garis 2px, ujung bulat, 20px.</p>
                 <ul class="sg-icons">
-                    @foreach (['check','x','check-circle','alert-circle','info','menu','user','logout','grid','book','list','clipboard','message','tag','plus','edit','trash'] as $icon)
+                    @foreach (['home','trophy','login','more','check','x','check-circle','alert-circle','info','menu','user','logout','grid','book','list','clipboard','message','tag','plus','edit','trash'] as $icon)
                         <li><x-icon :name="$icon" /> <span class="rf-small">{{ $icon }}</span></li>
                     @endforeach
                 </ul>

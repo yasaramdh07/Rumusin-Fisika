@@ -4,8 +4,9 @@
 
 @section('content')
 <div class="container rf-lessons">
+    <x-pagehead title="Materi fisika" />
+
     <header class="rf-lessons__head">
-        <h1>Materi fisika</h1>
         <p class="rf-prose rf-muted">Pilih kategori atau langsung buka materi yang sudah terbit. Semua materi dilengkapi Lembar Rumus dan tahapan video.</p>
 
         <nav class="rf-chips mt-4" aria-label="Filter kategori materi">

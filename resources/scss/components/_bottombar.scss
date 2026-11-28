@@ -1,0 +1,191 @@
+@use '../abstracts/mixins' as m;
+
+// Komponen rf-bottombar (DESIGN-UPDATE §2 & §3):
+// Satu-satunya navigasi di seluruh aplikasi (tamu, user, admin).
+// Mobile (< 768px): lebar penuh dikurangi 12px kiri-kanan, jarak 12px dari bawah + env(safe-area-inset-bottom).
+// Desktop (≥ 768px): pil melayang di tengah, lebar maks. 640px.
+// Tinggi: 64px (--rf-bar-h), permukaan --rf-base, bayangan --rf-sh-flat, radius 28px.
+.rf-bottombar {
+    position: fixed;
+    left: var(--rf-space-3);
+    right: var(--rf-space-3);
+    bottom: calc(var(--rf-space-3) + env(safe-area-inset-bottom, 0px));
+    z-index: var(--rf-z-bar);
+    height: var(--rf-bar-h);
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-slab);
+    padding: 0 var(--rf-space-2);
+    @include m.surface-flat;
+
+    @media (min-width: 768px) {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100% - 24px);
+        max-width: 640px;
+    }
+
+    // Varian statis untuk pratinjau di /styleguide
+    &--static {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        width: 100%;
+        max-width: 640px;
+        z-index: 1;
+    }
+}
+
+.rf-bottombar__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    align-items: center;
+    gap: var(--rf-space-1);
+}
+
+.rf-bottombar__cell {
+    position: relative;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rf-bottombar__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    width: 100%;
+    min-height: 48px;
+    min-width: 44px;
+    padding: 4px var(--rf-space-1);
+    border: 0;
+    border-radius: var(--rf-radius-pill);
+    background: transparent;
+    color: var(--rf-ink-soft);
+    font-family: var(--rf-font-body);
+    font-weight: 700;
+    font-size: 0.78125rem; // 12.5px (12-13px sesuai DESIGN-UPDATE §2)
+    line-height: 1.15;
+    text-decoration: none;
+    cursor: pointer;
+    @include m.respond-motion(color background-color box-shadow transform);
+
+    .rf-icon {
+        width: 24px;
+        height: 24px;
+        flex: 0 0 auto;
+    }
+
+    @include m.on-hover {
+        color: var(--rf-ink);
+    }
+
+    @include m.on-focus {
+        color: var(--rf-ink);
+        @include m.focus-ring;
+    }
+
+    @include m.on-press {
+        @include m.pressed;
+    }
+
+    &[aria-current='page'],
+    &.is-active {
+        background: var(--rf-yellow);
+        color: var(--rf-ink);
+        @include m.clay-yellow;
+    }
+}
+
+.rf-bottombar__label {
+    display: block;
+    max-width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+// Panel "Lainnya" (admin) yang membuka ke atas (DESIGN-UPDATE §3)
+.rf-more-panel {
+    position: absolute;
+    right: 0;
+    bottom: calc(var(--rf-bar-h) + var(--rf-space-2));
+    z-index: var(--rf-z-more-panel);
+    min-width: 224px;
+    padding: var(--rf-space-2);
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-tile);
+    @include m.surface-flat;
+    @include m.respond-motion(opacity transform);
+
+    &[hidden] {
+        display: none !important;
+    }
+
+    &--static {
+        position: relative;
+        right: auto;
+        bottom: auto;
+        display: inline-block;
+    }
+}
+
+.rf-more-panel__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.rf-more-panel__divider {
+    height: 1px;
+    background: var(--rf-base-lo);
+    margin: var(--rf-space-1) var(--rf-space-2);
+}
+
+.rf-more-panel__link {
+    display: flex;
+    align-items: center;
+    gap: var(--rf-space-2);
+    width: 100%;
+    min-height: 44px;
+    padding: 0 var(--rf-space-3);
+    border: 0;
+    border-radius: var(--rf-radius-input);
+    background: transparent;
+    color: var(--rf-ink);
+    font-family: var(--rf-font-body);
+    font-weight: 700;
+    font-size: var(--rf-text-sm);
+    text-decoration: none;
+    text-align: left;
+    cursor: pointer;
+
+    .rf-icon {
+        width: 20px;
+        height: 20px;
+    }
+
+    &:hover {
+        color: var(--rf-ink);
+        background: color-mix(in srgb, var(--rf-base-lo) 35%, transparent);
+    }
+
+    &[aria-current='page'],
+    &.is-active {
+        background: var(--rf-yellow);
+        color: var(--rf-ink);
+        @include m.clay-yellow;
+    }
+}

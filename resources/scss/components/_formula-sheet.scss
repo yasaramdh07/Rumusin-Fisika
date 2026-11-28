@@ -11,7 +11,8 @@
     @media (min-width: 992px) {
         &--sticky {
             position: sticky;
-            top: 96px;
+            top: var(--rf-space-5);
+            margin-bottom: calc(var(--rf-bar-h) + 24px);
         }
     }
 

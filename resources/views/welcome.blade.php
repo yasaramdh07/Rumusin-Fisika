@@ -4,6 +4,12 @@
 
 @section('content')
 <div class="container rf-landing">
+    <x-pagehead>
+        @guest
+            <a class="rf-btn rf-btn--secondary" href="{{ route('register') }}">Buat akun</a>
+        @endguest
+    </x-pagehead>
+
     <section class="rf-landing__hero" aria-labelledby="hero-heading">
         <div class="rf-landing__copy">
             <h1 id="hero-heading">Rumusin soalnya,<br>paham fisikanya.</h1>

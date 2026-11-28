@@ -4,8 +4,9 @@
 
 @section('content')
 <div class="container rf-lessons">
+    <x-pagehead title="Try out aktif" />
+
     <header class="rf-lessons__head">
-        <h1>Try out aktif</h1>
         <p class="rf-prose rf-muted">Pilih paket try out di bawah untuk menguji pemahaman rumusmu. Skor dan pembahasan bertahap langsung dihitung setelah kamu mengirim jawaban.</p>
     </header>
 

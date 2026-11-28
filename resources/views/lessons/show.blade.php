@@ -4,13 +4,15 @@
 
 @section('content')
 <div class="container rf-lesson">
-    <nav class="rf-lesson__crumb" aria-label="Jejak halaman">
-        <a href="{{ route('lessons.index') }}">Materi</a>
-        <span aria-hidden="true">›</span>
-        <a href="{{ route('lessons.index', ['kategori' => $lesson->category->slug]) }}">{{ $lesson->category->name }}</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page">{{ $lesson->title }}</span>
-    </nav>
+    <x-pagehead>
+        <x-slot:crumbs>
+            <a href="{{ route('lessons.index') }}">Materi</a>
+            <span aria-hidden="true">›</span>
+            <a href="{{ route('lessons.index', ['kategori' => $lesson->category->slug]) }}">{{ $lesson->category->name }}</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">{{ $lesson->title }}</span>
+        </x-slot:crumbs>
+    </x-pagehead>
 
     <header class="rf-lesson__header">
         <h1>{{ $lesson->title }}</h1>

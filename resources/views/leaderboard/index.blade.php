@@ -16,9 +16,10 @@
 
 @section('content')
 <div class="container rf-lb">
+    <x-pagehead title="Leaderboard" />
+
     <header class="rf-lb__head">
         <div>
-            <h1>Leaderboard</h1>
             <p class="rf-prose rf-muted mb-0">
                 Peringkat dihitung dari satu percobaan terbaik tiap pelajar dalam periode terpilih (skor tertinggi, lalu durasi tercepat, lalu selesai paling awal).
             </p>

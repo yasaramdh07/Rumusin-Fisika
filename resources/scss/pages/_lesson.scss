@@ -189,12 +189,12 @@
     }
 }
 
-// Dock Ruka di kanan-bawah halaman materi (DESIGN §6).
+// Dock Ruka di kanan-bawah halaman materi, tepat di atas bottom bar (DESIGN-UPDATE §2 & §6).
 .rf-ruka-dock {
     position: fixed;
     right: var(--rf-space-4);
-    bottom: var(--rf-space-4);
-    z-index: 60;
+    bottom: calc(var(--rf-bar-h) + 16px + env(safe-area-inset-bottom, 0px));
+    z-index: var(--rf-z-ruka-dock);
 }
 
 .rf-ruka-dock__btn {

@@ -1,0 +1,106 @@
+@use '../abstracts/mixins' as m;
+
+// Bar aksi mode fokus saat pengerjaan try out (/tryout/percobaan/{id}) — DESIGN-UPDATE §5:
+// Menggantikan bottom bar: fixed, tinggi 64px (--rf-bar-h), slab flat, radius 28px.
+// Isi: peta soal (titik terjawab/belum), sisa waktu, dan tombol clay merah "Kirim jawaban".
+.rf-actionbar {
+    position: fixed;
+    left: var(--rf-space-3);
+    right: var(--rf-space-3);
+    bottom: calc(var(--rf-space-3) + env(safe-area-inset-bottom, 0px));
+    z-index: var(--rf-z-bar);
+    min-height: var(--rf-bar-h);
+    background: var(--rf-base);
+    border-radius: var(--rf-radius-slab);
+    padding: var(--rf-space-2) var(--rf-space-3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3);
+    @include m.surface-flat;
+
+    @media (min-width: 768px) {
+        left: 50%;
+        right: auto;
+        transform: translateX(-50%);
+        width: calc(100% - 24px);
+        max-width: 760px;
+        padding: 0 var(--rf-space-4);
+    }
+
+    &--static {
+        position: relative;
+        left: auto;
+        right: auto;
+        bottom: auto;
+        transform: none;
+        width: 100%;
+        max-width: 760px;
+        z-index: 1;
+    }
+}
+
+.rf-actionbar__map {
+    list-style: none;
+    margin: 0;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    flex: 1 1 auto;
+    min-width: 0;
+    scrollbar-width: thin;
+}
+
+.rf-actionbar__dot {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--rf-base);
+    color: var(--rf-ink-soft);
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-decoration: none;
+    @include m.surface-inset;
+
+    &:hover {
+        color: var(--rf-ink);
+    }
+
+    &.is-answered {
+        background: var(--rf-yellow);
+        color: var(--rf-ink);
+        @include m.clay-yellow;
+    }
+}
+
+.rf-actionbar__timer {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px var(--rf-space-3);
+    border-radius: var(--rf-radius-pill);
+    background: var(--rf-base);
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    font-size: var(--rf-text-sm);
+    color: var(--rf-ink);
+    @include m.surface-inset;
+
+    &.is-expired {
+        background: var(--rf-red-soft);
+        color: var(--rf-red-deep);
+    }
+}
+
+.rf-actionbar__submit {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}

@@ -10,7 +10,7 @@
 @section('content')
     <div class="rf-alert rf-alert--info mb-5">
         <x-icon name="info" />
-        <div class="rf-alert__body"><span class="rf-alert__kind">Info</span> Ini halaman contoh untuk memeriksa sidebar dan tabel admin.</div>
+        <div class="rf-alert__body"><span class="rf-alert__kind">Info</span> Ini halaman contoh untuk memeriksa kepala halaman, bottom bar admin (termasuk panel "Lainnya"), dan tabel admin.</div>
     </div>
     <div class="rf-table-wrap">
         <table class="rf-table">

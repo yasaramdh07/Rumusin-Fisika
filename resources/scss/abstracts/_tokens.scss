@@ -51,6 +51,7 @@ $rf-space: (
 );
 
 $rf-motion: 150ms;
+$rf-bar-h: 64px;
 
 :root {
     --rf-base: #{$rf-base};
@@ -90,6 +91,14 @@ $rf-motion: 150ms;
     }
 
     --rf-motion: #{$rf-motion};
+
+    // Navigasi bottom bar & skala z-index (DESIGN-UPDATE §2)
+    --rf-bar-h: #{$rf-bar-h};
+    --rf-z-bar: 1000;
+    --rf-z-ruka-dock: 1010;
+    --rf-z-more-panel: 1015;
+    --rf-z-ruka-panel: 1020;
+    --rf-z-toast: 1030;
 
     // Elevasi
     --rf-sh-low: 3px 3px 8px var(--rf-base-lo), -3px -3px 8px var(--rf-base-hi);

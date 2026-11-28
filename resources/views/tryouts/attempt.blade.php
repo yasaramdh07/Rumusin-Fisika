@@ -8,21 +8,11 @@
 
 @section('content')
 <div class="container rf-tryout-work" data-tryout-attempt>
-    <header class="rf-slab rf-tryout-work__bar">
-        <div>
-            <h1 class="h3 mb-1">{{ $tryout->title }}</h1>
-            <p class="rf-muted rf-small mb-0">
-                <span class="rf-num" data-tryout-progress>0</span> dari <span class="rf-num">{{ $totalQuestions }}</span> soal terjawab
-            </p>
-        </div>
-
-        <div class="rf-tryout-timer" role="timer" aria-live="off" data-tryout-timer data-remaining-seconds="{{ $remainingSeconds }}">
-            <span class="rf-tryout-timer__label">Sisa waktu</span>
-            <strong class="rf-tryout-timer__clock rf-num" data-tryout-clock>
-                {{ sprintf('%02d:%02d', intdiv($remainingSeconds, 60), $remainingSeconds % 60) }}
-            </strong>
-        </div>
-    </header>
+    <x-pagehead :title="$tryout->title" :homeUrl="route('tryouts.show', $tryout)">
+        <p class="rf-muted rf-small mb-0">
+            <span class="rf-num" data-tryout-progress>0</span> dari <span class="rf-num">{{ $totalQuestions }}</span> soal terjawab
+        </p>
+    </x-pagehead>
 
     <form method="POST" action="{{ route('tryouts.submit', $attempt) }}" id="tryout-form">
         @csrf
@@ -85,39 +75,17 @@
                     </section>
                 @endforeach
             </div>
-
-            <aside class="rf-tryout-work__side" aria-label="Peta soal dan pengiriman">
-                <div class="rf-slab rf-tryout-map">
-                    <h2 class="h5 mb-3">Peta soal</h2>
-                    <ol class="rf-tryout-map__grid">
-                        @foreach ($questions as $q)
-                            @php
-                                $qId = $q['id'];
-                                $answered = ! empty(old('answers.'.$qId, $savedAnswers[$qId] ?? null));
-                            @endphp
-                            <li>
-                                <a
-                                    class="rf-tryout-map__dot rf-num @if ($answered) is-answered @endif"
-                                    href="#soal-{{ $q['number'] }}"
-                                    data-map-dot="{{ $q['number'] }}"
-                                    aria-label="Ke soal {{ $q['number'] }}"
-                                >
-                                    {{ $q['number'] }}
-                                </a>
-                            </li>
-                        @endforeach
-                    </ol>
-
-                    <p class="rf-muted rf-small mt-3 mb-4">
-                        Periksa kembali jawabanmu sebelum mengirim. Skor dihitung di server setelah tombol di bawah ditekan.
-                    </p>
-
-                    <button type="submit" class="rf-btn rf-btn--primary rf-btn--block">
-                        Kirim jawaban
-                    </button>
-                </div>
-            </aside>
         </div>
     </form>
+
+    {{-- Mode fokus try out (DESIGN-UPDATE §5): bottom bar disembunyikan dan diganti bar aksi --}}
+    <x-actionbar
+        :questions="$questions"
+        :savedAnswers="$savedAnswers"
+        :remainingSeconds="$remainingSeconds"
+        formId="tryout-form"
+    />
 </div>
 @endsection
+
+@section('hide_bottombar', '1')

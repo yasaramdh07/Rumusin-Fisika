@@ -4,9 +4,15 @@
 
 @section('content')
 <div class="container rf-home">
+    <x-pagehead title="Beranda">
+        @if ($user->isAdmin())
+            <a class="rf-btn rf-btn--tertiary" href="{{ route('admin.dashboard') }}"><x-icon name="grid" /> Dasbor Admin</a>
+        @endif
+    </x-pagehead>
+
     <div class="rf-home__top">
         <section class="rf-slab rf-slab--fold rf-home__continue" aria-labelledby="lanjut-heading">
-            <h1 id="lanjut-heading">Halo, {{ $user->name }}</h1>
+            <h2 class="h1" id="lanjut-heading">Halo, {{ $user->name }}</h2>
             @if ($featuredLesson)
                 <p class="rf-prose rf-muted">
                     Materi yang siap kamu baca: <strong>{{ $featuredLesson->title }}</strong> ({{ $featuredLesson->category->name }}).

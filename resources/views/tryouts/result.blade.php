@@ -4,13 +4,15 @@
 
 @section('content')
 <div class="container rf-tryout-result">
-    <nav class="rf-lesson__crumb" aria-label="Jejak halaman">
-        <a href="{{ route('tryouts.index') }}">Try out</a>
-        <span aria-hidden="true">›</span>
-        <a href="{{ route('tryouts.show', $tryout) }}">{{ $tryout->title }}</a>
-        <span aria-hidden="true">›</span>
-        <span aria-current="page">Hasil</span>
-    </nav>
+    <x-pagehead>
+        <x-slot:crumbs>
+            <a href="{{ route('tryouts.index') }}">Try out</a>
+            <span aria-hidden="true">›</span>
+            <a href="{{ route('tryouts.show', $tryout) }}">{{ $tryout->title }}</a>
+            <span aria-hidden="true">›</span>
+            <span aria-current="page">Hasil</span>
+        </x-slot:crumbs>
+    </x-pagehead>
 
     <section class="rf-slab rf-slab--fold rf-tryout-result__hero" aria-labelledby="hasil-heading">
         <div>

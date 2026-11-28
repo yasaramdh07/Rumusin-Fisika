@@ -4,6 +4,10 @@
 
 @section('content')
 <div class="container rf-auth">
+    <x-pagehead :homeUrl="url('/')">
+        <a class="rf-btn rf-btn--tertiary" href="{{ route('login') }}">Masuk</a>
+    </x-pagehead>
+
     <div class="rf-auth__grid">
         <div class="rf-slab rf-slab--fold rf-auth__panel">
             <h1>Buat akun baru</h1>

@@ -6,55 +6,25 @@
 <body>
     <a class="rf-skip" href="#konten">Lewati ke konten</a>
 
-    @php
-        $items = [
-            ['/admin', 'Dasbor', 'grid', 'admin'],
-            ['/admin/kategori', 'Kategori', 'tag', 'admin/kategori*'],
-            ['/admin/materi', 'Materi', 'book', 'admin/materi*'],
-            ['/admin/soal', 'Soal', 'list', 'admin/soal*'],
-            ['/admin/tryout', 'Try out', 'clipboard', 'admin/tryout*'],
-            ['/admin/diskusi', 'Diskusi', 'message', 'admin/diskusi*'],
-            ['/admin/pengguna', 'Pengguna', 'user', 'admin/pengguna*'],
-        ];
-    @endphp
-
     <div class="container-xl rf-admin">
-        <aside class="rf-admin__side">
-            <a class="rf-admin__brand" href="{{ url('/admin') }}">
-                <img src="{{ asset('images/logo-rumusin.png') }}" alt="" width="37" height="40">
-                <span>Admin</span>
-            </a>
-            <nav aria-label="Menu admin">
-                <ul class="rf-admin__nav">
-                    @foreach ($items as [$href, $label, $icon, $pattern])
-                        <li>
-                            <a class="rf-admin__link" href="{{ url($href) }}" @if (request()->is($pattern)) aria-current="page" @endif>
-                                <x-icon :name="$icon" /> {{ $label }}
-                            </a>
-                        </li>
-                    @endforeach
-                    <li>
-                        <a class="rf-admin__link" href="{{ url('/') }}"><x-icon name="book" /> Ke situs</a>
-                    </li>
-                    <li>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <button type="submit" class="rf-admin__link w-100 border-0 bg-transparent"><x-icon name="logout" /> Keluar</button>
-                        </form>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+        <x-pagehead :title=" trim($__env->yieldContent('heading')) " :homeUrl="url('/admin')">
+            @yield('actions')
+        </x-pagehead>
 
         <main class="rf-admin__main" id="konten" tabindex="-1">
-            <div class="rf-admin__head">
-                <h1>@yield('heading')</h1>
-                @yield('actions')
-            </div>
             @yield('content')
         </main>
     </div>
 
+    <footer class="rf-footer">
+        <div class="container-xl rf-footer__inner">
+            <p class="mb-0">Dikembangkan oleh <a href="https://ilyasaramadhany.my.id" target="_blank" rel="noopener noreferrer">Ilyasa Ramadhany</a></p>
+            <p class="mb-0">Panel Admin Rumusin Fisika</p>
+        </div>
+    </footer>
+
     @include('layouts.partials.toasts')
+
+    <x-bottombar context="admin" />
 </body>
 </html>

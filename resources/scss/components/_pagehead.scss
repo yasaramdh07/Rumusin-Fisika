@@ -1,0 +1,86 @@
+@use '../abstracts/mixins' as m;
+
+// Kepala halaman ringan pengganti navbar atas (DESIGN-UPDATE §4):
+// Logo Rumusin kecil di kiri atas menaut ke beranda + judul halaman / breadcrumb + aksi sekunder bila ada.
+// Ikut scroll (tidak sticky), tanpa shadow bar.
+.rf-pagehead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--rf-space-3) var(--rf-space-4);
+    padding-top: var(--rf-space-5);
+    padding-bottom: var(--rf-space-4);
+    margin-bottom: var(--rf-space-3);
+}
+
+.rf-pagehead__left {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-3);
+    min-width: 0;
+}
+
+.rf-pagehead__brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    @include m.touch-target;
+    padding: var(--rf-space-1);
+    border-radius: var(--rf-radius-input);
+    color: var(--rf-ink);
+    text-decoration: none;
+    flex: 0 0 auto;
+
+    img {
+        height: 38px;
+        width: auto;
+        display: block;
+    }
+}
+
+.rf-pagehead__titles {
+    min-width: 0;
+}
+
+.rf-pagehead__heading {
+    margin: 0;
+    font-family: var(--rf-font-display);
+    font-weight: 800;
+    font-size: clamp(1.375rem, 1.1rem + 1.2vw, var(--rf-text-xl));
+    line-height: 1.15;
+    color: var(--rf-ink);
+}
+
+.rf-pagehead__subtitle {
+    margin: 2px 0 0;
+    font-size: var(--rf-text-xs);
+    color: var(--rf-ink-soft);
+}
+
+.rf-pagehead__crumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-2);
+    font-size: var(--rf-text-xs);
+    font-weight: 700;
+    color: var(--rf-ink-soft);
+
+    a {
+        color: var(--rf-ink);
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+.rf-pagehead__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--rf-space-2);
+}

@@ -70,60 +70,17 @@
     }
 }
 
-// Halaman pengerjaan try out
+// Halaman pengerjaan try out (mode fokus — DESIGN-UPDATE §5)
 .rf-tryout-work {
-    padding-top: var(--rf-space-5);
-    padding-bottom: var(--rf-space-8);
-}
-
-.rf-tryout-work__bar {
-    position: sticky;
-    top: 88px;
-    z-index: 40;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--rf-space-3);
-    padding: var(--rf-space-3) var(--rf-space-5);
-    margin-bottom: var(--rf-space-5);
-}
-
-.rf-tryout-timer {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--rf-space-3);
-    padding: var(--rf-space-2) var(--rf-space-4);
-    border-radius: var(--rf-radius-pill);
-    background: var(--rf-base);
-    @include m.surface-inset;
-
-    &.is-expired {
-        background: var(--rf-red-soft);
-        color: var(--rf-red-deep);
-    }
-}
-
-.rf-tryout-timer__label {
-    font-size: var(--rf-text-xs);
-    font-weight: 700;
-    color: var(--rf-ink-soft);
-}
-
-.rf-tryout-timer__clock {
-    font-family: var(--rf-font-display);
-    font-size: var(--rf-text-lg);
+    padding-top: var(--rf-space-3);
+    padding-bottom: calc(var(--rf-bar-h) + 40px + env(safe-area-inset-bottom, 0px));
 }
 
 .rf-tryout-work__grid {
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: var(--rf-space-6);
-
-    @media (min-width: 992px) {
-        grid-template-columns: minmax(0, 1fr) 300px;
-        align-items: start;
-    }
+    max-width: 820px;
 }
 
 .rf-tryout-work__questions {

@@ -4,10 +4,24 @@
 
 @section('content')
 <div class="container rf-profile">
+    <x-pagehead title="Profil">
+        @if ($user->isAdmin())
+            <a class="rf-btn rf-btn--secondary" href="{{ route('admin.dashboard') }}">
+                <x-icon name="grid" /> Dasbor Admin
+            </a>
+        @endif
+        <form method="POST" action="{{ route('logout') }}" class="m-0">
+            @csrf
+            <button type="submit" class="rf-btn rf-btn--tertiary">
+                <x-icon name="logout" /> Keluar
+            </button>
+        </form>
+    </x-pagehead>
+
     <header class="rf-profile__head">
         <x-ruka-avatar size="lg" />
         <div>
-            <h1>{{ $user->name }}</h1>
+            <h2 class="h1 mb-1">{{ $user->name }}</h2>
             <p class="rf-muted mb-0">
                 Username: <code>{{ $user->username }}</code>
                 @if ($user->email)
