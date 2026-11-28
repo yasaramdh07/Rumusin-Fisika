@@ -26,7 +26,11 @@ class LessonTest extends TestCase
         $this->get('/materi')
             ->assertOk()
             ->assertSee('Gerak Lurus (GLB dan GLBB)')
-            ->assertDontSee('Hukum Ohm dan Rangkaian Listrik');
+            ->assertSee('Hukum Ohm dan Rangkaian Listrik')
+            ->assertSee('Hukum Newton tentang Gerak')
+            ->assertSee('Usaha dan Energi')
+            ->assertSee('Hukum Archimedes')
+            ->assertSee('Komponen Elektronika Dasar');
     }
 
     public function test_published_lesson_renders_formulas_and_staged_videos(): void
@@ -38,12 +42,11 @@ class LessonTest extends TestCase
         $response->assertOk()
             ->assertSee('Gerak Lurus (GLB dan GLBB)')
             ->assertSee('Lembar Rumus')
-            ->assertSee('$v_t = v_0 + a\,t$', false)
+            ->assertSee('$$v_t = v_0 + a\,t$$', false)
             ->assertSee('data-physics-tool="gerak"', false)
             ->assertSee('Simulasi &amp; Kalkulator Rumus', false)
-            ->assertSee('youtube-nocookie.com/embed/jNQXAC9IVRw', false)
-            ->assertSee('data-youtube-id="9bZkp7q19f0"', false)
-            ->assertSee('data-youtube-id="dQw4w9WgXcQ"', false)
+            ->assertSee('youtube-nocookie.com/embed/ZM8ECpBuQYE', false)
+            ->assertSee('data-youtube-id="ZM8ECpBuQYE"', false)
             ->assertSee('Diskusi')
             ->assertSee('Tanya Ruka');
     }

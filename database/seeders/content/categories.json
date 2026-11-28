@@ -1,0 +1,38 @@
+[
+    {
+        "name": "Gerak",
+        "slug": "gerak",
+        "description": "GLB, GLBB, jarak, waktu, kecepatan, percepatan.",
+        "sort_order": 1
+    },
+    {
+        "name": "Listrik",
+        "slug": "listrik",
+        "description": "Arus (I), Tegangan (V), Hambatan (R), Hukum Ohm.",
+        "sort_order": 2
+    },
+    {
+        "name": "Gaya (Newton)",
+        "slug": "gaya-newton",
+        "description": "Hukum Newton, gaya resultan, massa, percepatan.",
+        "sort_order": 3
+    },
+    {
+        "name": "Energi",
+        "slug": "energi",
+        "description": "Energi kinetik, potensial, usaha, dan daya.",
+        "sort_order": 4
+    },
+    {
+        "name": "Archimedes",
+        "slug": "archimedes",
+        "description": "Gaya apung, massa jenis, volume benda, fluida.",
+        "sort_order": 5
+    },
+    {
+        "name": "Elektronika Dasar",
+        "slug": "elektronika-dasar",
+        "description": "Resistor, kapasitor, LED, rangkaian seri & paralel.",
+        "sort_order": 6
+    }
+]

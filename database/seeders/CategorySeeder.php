@@ -4,24 +4,28 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use Illuminate\Database\Seeder;
+use RuntimeException;
 
 class CategorySeeder extends Seeder
 {
     public function run(): void
     {
-        $categories = [
-            ['Gerak', 'gerak', 'Kinematika: jarak, kecepatan, percepatan, dan gerak lurus.'],
-            ['Listrik', 'listrik', 'Muatan, arus, tegangan, hambatan, dan rangkaian listrik.'],
-            ['Gaya (Newton)', 'gaya-newton', 'Hukum Newton dan penerapannya pada benda sehari-hari.'],
-            ['Energi', 'energi', 'Usaha, energi kinetik dan potensial, serta kekekalan energi.'],
-            ['Archimedes', 'archimedes', 'Tekanan zat cair, gaya apung, terapung, melayang, dan tenggelam.'],
-            ['Elektronika Dasar', 'elektronika-dasar', 'Komponen dasar elektronika dan cara membaca rangkaian sederhana.'],
-        ];
+        $path = database_path('seeders/content/categories.json');
+        if (! is_file($path)) {
+            throw new RuntimeException("Berkas konten kategori tidak ditemukan: {$path}");
+        }
 
-        foreach ($categories as $i => [$name, $slug, $description]) {
+        /** @var array<int, array{name: string, slug: string, description: string, sort_order: int}> $categories */
+        $categories = json_decode((string) file_get_contents($path), true, 512, JSON_THROW_ON_ERROR);
+
+        foreach ($categories as $item) {
             Category::updateOrCreate(
-                ['slug' => $slug],
-                ['name' => $name, 'description' => $description, 'sort_order' => $i + 1],
+                ['slug' => $item['slug']],
+                [
+                    'name' => $item['name'],
+                    'description' => $item['description'],
+                    'sort_order' => (int) $item['sort_order'],
+                ],
             );
         }
     }

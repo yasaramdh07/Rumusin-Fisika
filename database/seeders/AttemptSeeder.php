@@ -12,30 +12,41 @@ class AttemptSeeder extends Seeder
 {
     /**
      * Percobaan contoh agar leaderboard tidak kosong. Hanya jika akun dummy ada (environment local).
+     * Idempotent: membersihkan percobaan lama milik akun dummy sebelum membuat ulang data contoh.
      */
     public function run(): void
     {
-        $tryout = Tryout::where('slug', 'tryout-gerak-lurus-glb-glbb')->with('questions')->first();
-        $users = User::where('role', User::ROLE_USER)->orderBy('id')->get()->values();
+        $dummyUsernames = [
+            'usersaturumusin',
+            'userduarumusin',
+            'usertigarumusin',
+            'userempatrumusin',
+            'userlimarumusin',
+        ];
 
-        if (! $tryout || $users->isEmpty()) {
+        $users = User::whereIn('username', $dummyUsernames)->orderBy('id')->get()->values();
+        $gerakTryout = Tryout::where('slug', 'tryout-gerak-lurus-glb-glbb')->with('questions')->first();
+
+        if (! $gerakTryout || $users->isEmpty()) {
             $this->command?->warn('AttemptSeeder dilewati: akun dummy atau try out belum ada.');
 
             return;
         }
 
+        // Hapus percobaan lama milik akun dummy agar seeder idempotent saat dijalankan berulang kali.
+        TryoutAttempt::whereIn('user_id', $users->pluck('id'))->delete();
+
         $now = now();
         $weekStart = $now->copy()->startOfWeek(Carbon::MONDAY);
         $weekSpan = max(60, $weekStart->diffInSeconds($now));
 
-        // [indeks user, jumlah benar, durasi detik, minggu ini? , pecahan minggu / hari lalu]
-        // Sebagian di minggu ini, sebagian bulan ini (di luar minggu ini), dan sebagian bulan lalu
-        // agar ketiga tab leaderboard (Mingguan, Bulanan, Semua waktu) menampilkan urutan berbeda.
-        $plan = [
+        // 1. Percobaan pada Try out Gerak Lurus (12 percobaan: minggu ini, bulan ini, bulan lalu)
+        // [indeks user, rasio benar (dari 10), durasi detik, minggu ini?, pecahan minggu / hari lalu]
+        $gerakPlan = [
             [0, 9, 420, true, 0.20],
             [1, 10, 540, true, 0.35],
             [2, 8, 380, true, 0.50],
-            [3, 10, 610, true, 0.60], // skor sama dengan user 2, lebih lambat
+            [3, 10, 610, true, 0.60],
             [4, 6, 700, true, 0.80],
             [0, 7, 500, true, 0.90],
             [2, 9, 450, true, 0.95],
@@ -46,8 +57,46 @@ class AttemptSeeder extends Seeder
             [4, 9, 480, false, 70],
         ];
 
-        foreach ($plan as $n => [$userIndex, $correct, $duration, $thisWeek, $when]) {
+        $this->seedAttemptsForTryout($gerakTryout, $users, $gerakPlan, $now, $weekStart, $weekSpan);
+
+        // 2. Percobaan pada Try Out Gabungan Fisika SMA (6 percobaan: sebagian minggu ini, sebagian lebih lama)
+        $combinedTryout = Tryout::where('slug', 'tryout-gabungan-fisika-sma')->with('questions')->first();
+        if ($combinedTryout && $combinedTryout->questions->isNotEmpty()) {
+            $combinedPlan = [
+                [0, 9, 780, true, 0.25],
+                [1, 8, 820, true, 0.45],
+                [2, 10, 910, true, 0.65],
+                [3, 7, 740, true, 0.75],
+                [4, 9, 690, false, 12],
+                [1, 10, 640, false, 40],
+            ];
+
+            $this->seedAttemptsForTryout($combinedTryout, $users, $combinedPlan, $now, $weekStart, $weekSpan);
+        }
+    }
+
+    /**
+     * @param  \Illuminate\Support\Collection<int, User>  $users
+     * @param  array<int, array{0: int, 1: int, 2: int, 3: bool, 4: float|int}>  $plan
+     */
+    private function seedAttemptsForTryout(
+        Tryout $tryout,
+        $users,
+        array $plan,
+        Carbon $now,
+        Carbon $weekStart,
+        int $weekSpan
+    ): void {
+        $questions = $tryout->questions->values();
+        $total = $questions->count();
+        if ($total === 0) {
+            return;
+        }
+
+        foreach ($plan as $n => [$userIndex, $ratioOutOfTen, $duration, $thisWeek, $when]) {
             $user = $users[$userIndex % $users->count()];
+            $correct = (int) round(($ratioOutOfTen / 10) * $total);
+            $correct = max(0, min($total, $correct));
 
             $finishedAt = $thisWeek
                 ? $weekStart->copy()->addSeconds((int) floor($weekSpan * $when))
@@ -59,16 +108,13 @@ class AttemptSeeder extends Seeder
                 'tryout_id' => $tryout->id,
                 'started_at' => $startedAt,
                 'finished_at' => $finishedAt,
-                'score' => (int) round($correct / max(1, $tryout->questions->count()) * 100),
+                'score' => (int) round($correct / $total * 100),
                 'correct_count' => $correct,
-                'total_questions' => $tryout->questions->count(),
+                'total_questions' => $total,
                 'duration_seconds' => $duration,
                 'is_late' => false,
             ]);
 
-            // Soal yang dijawab benar bergeser per percobaan agar polanya tidak seragam.
-            $questions = $tryout->questions->values();
-            $total = $questions->count();
             foreach ($questions as $i => $question) {
                 $isCorrect = (($i + $n) % $total) < $correct;
                 $selected = $question->correct_option;
