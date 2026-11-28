@@ -53,18 +53,20 @@ class ContentImportSeederTest extends TestCase
 
         // Pastikan ke-6 halaman materi terbit dapat dibuka publik dengan rumus, alat, dan video YouTube masing-masing
         $expectedLessons = [
-            'gerak-lurus-glb-glbb' => 'ZM8ECpBuQYE',
-            'hukum-ohm-dan-rangkaian-listrik' => 'WQjGeCGuC1o',
-            'hukum-newton-tentang-gerak' => 'ou9YMWlJgkE',
-            'usaha-dan-energi' => 'qXSFmDzYWnE',
-            'hukum-archimedes' => 'sLX_FHeI0FM',
-            'komponen-elektronika-dasar' => 'dLalv-D_HM8',
+            'gerak-lurus-glb-glbb' => ['ZM8ECpBuQYE', 'gerak'],
+            'hukum-ohm-dan-rangkaian-listrik' => ['WQjGeCGuC1o', 'listrik'],
+            'hukum-newton-tentang-gerak' => ['ou9YMWlJgkE', 'gaya-newton'],
+            'usaha-dan-energi' => ['qXSFmDzYWnE', 'energi'],
+            'hukum-archimedes' => ['sLX_FHeI0FM', 'archimedes'],
+            'komponen-elektronika-dasar' => ['dLalv-D_HM8', 'elektronika-dasar'],
         ];
 
-        foreach ($expectedLessons as $slug => $youtubeId) {
+        foreach ($expectedLessons as $slug => [$youtubeId, $toolKey]) {
             $this->get("/materi/{$slug}")
                 ->assertOk()
                 ->assertSee("youtube-nocookie.com/embed/{$youtubeId}", false)
+                ->assertSee("data-physics-tool=\"{$toolKey}\"", false)
+                ->assertSee('Simulasi &amp; Kalkulator Rumus', false)
                 ->assertSee('Lembar Rumus');
         }
     }
