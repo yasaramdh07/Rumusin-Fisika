@@ -1,23 +1,35 @@
-# Rumusin Fisika
+<p align="center">
+  <img src="public/images/logo-rumusin.png" alt="Logo Rumusin" width="160">
+</p>
 
-**"Rumusin soalnya, paham fisikanya."**  
-Platform belajar fisika SMA (versi *prototype*) yang menggabungkan materi tertulis dengan **Lembar Rumus** bergaya kertas milimeter, tahapan video terstruktur, kalkulator dan simulasi interaktif, *try out* bernilai di server, *leaderboard* periodik, forum diskusi per materi, serta **Ruka** — asisten belajar AI kontekstual.
+<h1 align="center">Rumusin Fisika</h1>
 
-Dikembangkan oleh **Ilyasa Ramadhany** ([ilyasaramadhany.my.id](https://ilyasaramadhany.my.id)).
+<p align="center">
+  <strong>"Rumusin Soalnya, Paham Fisikanya!"</strong>
+</p>
+
+<p align="center">
+  Platform belajar fisika SMA (versi <em>prototype</em> v0.2) yang menggabungkan materi tertulis dengan <strong>Lembar Rumus</strong> bergaya kertas milimeter, tahapan video terstruktur, simulasi kanvas dan kalkulator rumus interaktif, <em>try out</em> bernilai di server dengan mode fokus, <em>leaderboard</em> periodik, forum diskusi per materi, serta <strong>Ruka</strong> — asisten belajar AI kontekstual.
+</p>
+
+<p align="center">
+  Dikembangkan oleh <strong>Ilyasa Ramadhany</strong> (<a href="https://ilyasaramadhany.my.id">ilyasaramadhany.my.id</a>)
+</p>
 
 ---
 
-## Status Proyek: Prototype
+## Status Proyek: Prototype (v0.2)
 
-Repositori ini merupakan **prototype fungsional** dari Rumusin Fisika yang mencakup:
+Repositori ini merupakan **prototype fungsional v0.2** dari Rumusin Fisika yang mencakup:
 
-- **Materi & Lembar Rumus**: Enam kategori fisika SMA (*Gerak*, *Listrik*, *Gaya / Hukum Newton*, *Energi*, *Hukum Archimedes*, *Elektronika Dasar*) dengan materi Markdown + rumus LaTeX (KaTeX) yang disanitasi di server.
-- **Tahapan Video**: Daftar video YouTube bertahap (*step track*) yang dimuat secara *lazy* lewat `youtube-nocookie.com`.
-- **Simulasi & Kalkulator Rumus**: Enam modul kalkulator & simulasi fisika interaktif (*Gerak Lurus GLB/GLBB*, *Listrik & Tagihan Rumahan*, *Gaya Newton*, *Usaha & Energi*, *Archimedes*, *Elektronika Dasar*) serta kalkulator mini langsung di Lembar Rumus halaman depan.
-- **Try Out & Penilaian Server**: Paket *try out* berdurasi dengan urutan soal diacak secara deterministik per percobaan, batas percobaan harian (`TRYOUT_DAILY_ATTEMPTS`), penilaian 100% di server (kunci jawaban dan pembahasan tidak pernah dikirim ke browser saat pengerjaan), dan halaman peninjauan hasil.
+- **Materi Lengkap & Lembar Rumus**: Enam kategori dan enam materi fisika SMA (*Gerak Lurus GLB & GLBB*, *Hukum Ohm & Rangkaian Listrik*, *Hukum Newton tentang Gerak*, *Usaha & Energi*, *Hukum Archimedes*, *Komponen Elektronika Dasar*) dalam format Markdown + rumus LaTeX (KaTeX) yang disanitasi di server, lengkap dengan ilustrasi SVG di `public/images/materi/`.
+- **Tahapan Video**: Daftar video YouTube bertahap (*step track*, 18 tahapan video lintas 6 materi) yang dimuat secara *lazy* lewat `youtube-nocookie.com`.
+- **Simulasi Kanvas & Kalkulator Rumus**: Enam simulasi kanvas interaktif dan 15 kalkulator fisika (*Gerak Lurus GLB/GLBB*, *Listrik, Rangkaian & Tagihan Rumahan + Diagram Lingkaran kWh*, *Gaya Newton & Resultan*, *Usaha Mendorong & Jatuh Bebas $E_p \to E_k$*, *Kapal Selam Hukum Archimedes*, *Sirkuit LED & Resistor Elektronika Dasar*) serta kalkulator mini langsung di Lembar Rumus halaman depan.
+- **Try Out, Mode Fokus, & Penilaian Server**: Tujuh paket *try out* aktif (6 paket per materi + 1 *Try Out Gabungan Fisika SMA* berisi 20 soal campuran) dengan urutan soal diacak secara deterministik per percobaan, batas percobaan harian (`TRYOUT_DAILY_ATTEMPTS`), mode fokus pengerjaan dengan *action bar* bawah (peta soal, sisa waktu, tombol kirim), penilaian 100% di server (kunci jawaban dan pembahasan tidak pernah dikirim ke browser saat pengerjaan), dan halaman peninjauan hasil.
+- **Navigasi Bottom Bar Tunggal**: Seluruh navigasi aplikasi (tamu, pelajar masuk, dan admin beserta panel *"Lainnya"*) berada di satu *bottom bar* melayang yang ramah jempol di ponsel maupun desktop, dilengkapi kepala halaman (`x-pagehead`) ringan di bagian atas.
 - **Leaderboard**: Peringkat mingguan (Senin–Minggu WIB), bulanan, dan semua waktu berdasarkan satu percobaan terbaik tiap pelajar (skor tertinggi → durasi tercepat → selesai paling awal).
 - **Diskusi per Materi**: Thread tanya jawab teks polos dengan balasan satu tingkat dan moderasi admin.
-- **Ruka (Asisten AI per Materi)**: Panel tanya jawab kontekstual yang memahami isi dan Lembar Rumus materi yang sedang dibuka, menggunakan provider `fake` (untuk pengembangan/pengujian lokal) atau **Google AI Studio (Gemini)** di server.
+- **Ruka (Asisten AI per Materi)**: Panel tanya jawab kontekstual di atas *bottom bar* yang memahami isi dan Lembar Rumus materi yang sedang dibuka, menggunakan provider `fake` (untuk pengembangan/pengujian lokal) atau **Google AI Studio (Gemini)** di server.
 - **Panel Admin (`/admin`)**: Kelola kategori, materi, video bertahap, bank soal dengan pratinjau KaTeX, paket *try out*, moderasi diskusi, dan daftar pengguna terdaftar.
 
 ---
@@ -26,7 +38,7 @@ Repositori ini merupakan **prototype fungsional** dari Rumusin Fisika yang menca
 
 - **Backend**: PHP 8.3+, Laravel 13
 - **Database**: SQLite (default pengembangan lokal; skema dan *query* portabel ke PostgreSQL)
-- **Frontend**: Blade (Server-Side Rendered), Bootstrap 5.3 (SCSS modular dengan *design system* Neumorphism + Claymorphism kustom), Vanilla JS, Vite
+- **Frontend**: Blade (Server-Side Rendered), Bootstrap 5.3 (SCSS modular dengan *design system* Neumorphism + Claymorphism kustom), Vanilla JS, HTML5 Canvas, Vite
 - **Tipografi & Rumus**: *Bricolage Grotesque*, *Atkinson Hyperlegible*, KaTeX, `league/commonmark`
 
 ---
@@ -66,23 +78,37 @@ Buat file database SQLite kosong bila belum ada:
   New-Item -ItemType File -Path database/database.sqlite -Force
   ```
 
-### 4. Atur `SEED_PASSWORD` & Jalankan Migrasi + Seeder
+### 4. Cara Seed (Akun Dummy lewat `SEED_PASSWORD` & Seeder Konten)
 
-Seeder membuat **1 akun admin** dan **5 akun pelajar dummy**, 6 kategori fisika, materi lengkap *Gerak Lurus (GLB dan GLBB)* beserta tahapan video, 10 soal fisika, 1 paket *try out* aktif, dan contoh riwayat percobaan untuk *leaderboard*.
+Seeder Rumusin bersifat **idempotent** (aman dijalankan berulang kali tanpa menggandakan data) dan terbagi menjadi dua kelompok:
 
-Buka file `.env`, lalu isi variabel `SEED_PASSWORD` dengan password lokal pilihan Anda (minimal 8 karakter; nilai ini **wajib** diisi sebelum menjalankan `--seed` dan tidak pernah disimpan di kode atau repo):
+1. **Seeder Konten (`database/seeders/content/`)**:
+   - `CategorySeeder`: 6 kategori fisika SMA.
+   - `LessonSeeder`: 6 materi lengkap dari berkas Markdown ber-*front-matter* (`database/seeders/content/lessons/*.md`) beserta Lembar Rumus dan 18 tahapan video YouTube.
+   - `QuestionSeeder`: 37 soal fisika pilihan ganda A–D beserta pembahasan dari `database/seeders/content/questions.json`.
+   - `TryoutSeeder`: 7 paket *try out* aktif (6 paket per materi + 1 paket *Try Out Gabungan Fisika SMA* 20 soal).
+2. **Seeder Akun & Percobaan Dummy (khusus `APP_ENV=local`)**:
+   - `AdminUserSeeder` & `DummyUsersSeeder`: membuat 1 akun admin dan 5 akun pelajar dummy menggunakan password dari variabel environment `SEED_PASSWORD`.
+   - `AttemptSeeder`: membuat riwayat percobaan *try out* contoh untuk mengisi *leaderboard* lokal.
+
+Buka file `.env`, lalu isi variabel `SEED_PASSWORD` dengan password lokal pilihan Anda (minimal 8 karakter; nilai ini **wajib** diisi sebelum menjalankan seeder akun di `local` dan tidak pernah disimpan di kode atau repo):
 
 ```dotenv
 SEED_PASSWORD=isi_password_lokal_anda_di_sini
 ```
 
-Jalankan migrasi dan seeder:
+Jalankan migrasi dan seluruh seeder untuk instalasi baru:
 
 ```bash
-php artisan migrate:fresh --seed
+php artisan migrate --seed
 ```
 
-Setelah seeder selesai, Anda bisa masuk (`/masuk`) memakai password dari `SEED_PASSWORD` di `.env` Anda dengan salah satu akun berikut:
+> **Tips pembaruan konten**: Karena seluruh seeder konten bersifat idempotent, jika database lokal Anda sudah memiliki data pengguna dan Anda hanya ingin menyinkronkan ulang materi/soal/paket *try out* tanpa menghapus pengguna, jalankan:
+> ```bash
+> php artisan db:seed
+> ```
+
+Setelah seeder selesai di environment `local`, Anda bisa masuk (`/masuk`) memakai password dari `SEED_PASSWORD` di `.env` Anda dengan salah satu akun dummy berikut:
 
 | Peran | Username | Email |
 | :--- | :--- | :--- |
@@ -125,7 +151,7 @@ php artisan serve
 ```
 
 Buka `http://127.0.0.1:8000` di browser.  
-Pada mode `APP_ENV=local`, halaman pemeriksaan komponen desain juga tersedia di `http://127.0.0.1:8000/styleguide`.
+Pada mode `APP_ENV=local`, halaman pemeriksaan komponen desain (termasuk pratinjau 3 konteks *bottom bar*, panel *"Lainnya"*, *action bar* mode fokus *try out*, dan kepala halaman) tersedia di `http://127.0.0.1:8000/styleguide`.
 
 ---
 
@@ -162,22 +188,31 @@ php artisan test
 │   ├── factories/              # Factory model untuk pengujian
 │   ├── migrations/             # Skema portabel SQLite & PostgreSQL
 │   └── seeders/                # AdminUserSeeder, DummyUsersSeeder, CategorySeeder,
-│                               # LessonSeeder, QuestionSeeder, TryoutSeeder
+│       ├── content/            # Sumber konten idempotent (categories.json, questions.json, lessons/*.md)
+│       └── ...                 # LessonSeeder, QuestionSeeder, TryoutSeeder, AttemptSeeder
+├── public/
+│   └── images/
+│       ├── logo-rumusin.png    # Logo utama Rumusin Fisika
+│       └── materi/             # Ilustrasi SVG materi fisika
 ├── resources/
 │   ├── js/
-│   │   ├── tools/              # Modul kalkulator & simulasi per topik fisika
+│   │   ├── tools/              # Modul simulasi kanvas & kalkulator per topik fisika (6 berkas)
+│   │   ├── bottombar.js        # Panel "Lainnya" admin (focus trap, Escape, klik luar, aria-expanded)
 │   │   └── app.js              # KaTeX auto-render, video switcher, timer try out, Ruka chat
 │   ├── scss/
-│   │   ├── abstracts/          # Token warna (--rf-*), tipografi, mixin elevasi clay/neumorphic
+│   │   ├── abstracts/          # Token warna (--rf-*), z-index, tipografi, mixin elevasi clay/neumorphic
 │   │   ├── base/               # Reset, tipografi, focus ring (:focus-visible)
-│   │   ├── components/         # Tombol, slab, formula-sheet, form, chip, track, chat, tools, dll.
+│   │   ├── components/         # Bottom bar, pagehead, actionbar, tombol, slab, formula-sheet, chat, dll.
 │   │   └── pages/              # Gaya spesifik halaman (landing, lesson, tryout, admin, dll.)
-│   └── views/                  # Template Blade (layouts, welcome, home, lessons, tryouts,
-│                               # leaderboard, profile, auth, admin)
+│   └── views/
+│       ├── components/         # Komponen Blade (x-bottombar, x-pagehead, x-actionbar, x-icon, dll.)
+│       └── ...                 # Template halaman (layouts, welcome, home, lessons, tryouts,
+│                               # leaderboard, profile, auth, admin, styleguide)
 ├── routes/
 │   └── web.php                 # Definisi rute publik, auth, dan admin
 └── tests/
     ├── Feature/                # Pengujian fitur end-to-end (Auth, Lesson, Admin, Tryout,
-    │                           # Leaderboard, Discussion, Ruka, QaAudit)
-    └── Unit/                   # Pengujian unit (YoutubeUrlParser, PhysicsCalculator)
+    │                           # Leaderboard, Discussion, Ruka, ContentImportSeeder,
+    │                           # BottomBarNavigation, QaAudit)
+    └── Unit/                   # Pengujian unit (YoutubeUrlParser, PhysicsCalculator 45 kasus uji)
 ```
